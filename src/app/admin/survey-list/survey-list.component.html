@@ -1,0 +1,36 @@
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 style="color:gray;">List of Surveys</h1>
+    <br>
+    <!-- Content Row -->
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Thank You Message</th>
+                        <!-- <th>Status</th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let survey of surveys; let i = index">
+                        <td>{{ i+ 1}}</td>
+                        <td>
+                            <a style="color: rgb(94, 41, 238);margin-left: 0rem;cursor: pointer;" [routerLink]="[i,'detail']">{{survey.name}}</a>
+                        </td>
+                        <td>{{ survey.description }} </td>
+                        <td>{{ survey.startDate }}</td>
+                        <td>{{ survey.endDate }}</td>
+                        <td>{{ survey.thankYouMessage }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

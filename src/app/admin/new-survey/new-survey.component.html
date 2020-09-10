@@ -1,0 +1,48 @@
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 style="color:gray;">Create Survey - Step 1</h1>
+    <br>
+    <form [formGroup]="newSurveyForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+            <div class="col-xl-6">
+                <label for="surveyName">Name</label>
+                <input type="text" class="form-control" id="surveyName" formControlName="name">
+            </div>
+            <div class="col-xl-6">
+                <label for="startDate">Start Date</label>
+                <input type="date" class="form-control" id="startDate" formControlName="startDate">
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-xl-6">
+                <label for="surveyDescription">Description</label>
+                <textarea name="surveyDescription" id="surveyDescription" rows="4" class="form-control" formControlName="description"></textarea>
+            </div>
+            <div class="col-xl-6">
+                <label for="endDate">End Date</label>
+                <input type="date" class="form-control" id="endDate" formControlName="endDate">
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-xl-6">
+                <label for="thankYouMessage">Thank You Message</label>
+                <input type="text" class="form-control" id="thankYouMessage" formControlName="thankYouMessage">
+            </div>
+            <!-- <div class="col-xl-6">
+                <label for="status">Status</label>
+                <input type="text" class="form-control" id="status">
+            </div> -->
+        </div>
+        <br>
+        <br>
+        <div class="row">
+            &nbsp;&nbsp;
+            <button type="submit" class="btn btn-primary" [disabled]="!newSurveyForm.valid">Next</button> &nbsp;&nbsp;
+        </div>
+    </form>
+    <!-- Content Row -->
+
+</div>

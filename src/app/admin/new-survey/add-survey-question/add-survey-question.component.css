@@ -1,0 +1,11 @@
+.box-shape {
+    height: 150px;
+    width: 150px;
+    background-color: rgb(219, 211, 211);
+    border-radius: 5px;
+    margin-bottom: 30px;
+    float: left;
+    margin-right: 20px;
+    color: black;
+    text-align: center;
+}

@@ -1,0 +1,64 @@
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 style="color:gray;">Employee Registration</h1>
+    <hr>
+    <h3>Personal Details</h3>
+    <hr>
+    <form [formGroup]="editEmployeeForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+            <div class="col-xl-4">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" formControlName="username">
+                <!-- <span class="help-block" *ngIf="!username.valid && username.touched"> *Please enter your username</span> -->
+            </div>
+            <div class="col-xl-4">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" formControlName="name">
+                <!-- <span class="help-block" *ngIf="!name.valid && name.touched"> *Please enter your name</span> -->
+            </div>
+        </div>
+        <hr>
+        <h3>Contact Details</h3>
+        <hr>
+        <div class="row">
+            <div class="col-xl-4">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" formControlName="email">
+                <!-- <span class="help-block" *ngIf="!email.valid && email.touched"> *Please enter a valid email</span> -->
+            </div>
+            <div class="col-xl-4">
+                <label for="phone">Mobile Number</label>
+                <input type="tel" class="form-control" formControlName="phoneNumber">
+                <!-- <span class="help-block" *ngIf="!phone.valid && phone.touched"> *Please enter a valid phone number</span> -->
+            </div>
+        </div>
+        <hr>
+        <h3>Official Details</h3>
+        <hr>
+        <div class="row">
+            <div class="col-xl-4">
+                <label for="department">Department</label>
+                <select class="form-control" formControlName="department">
+                        <option value="{{ department.id }}" *ngFor="let department of departments; let i = index">{{department.departmentName}}</option>                       
+                </select>
+            </div>
+            <div class="col-xl-4">
+                <label for="designation">Designation</label>
+                <select class="form-control" formControlName="designation">
+                    <option value="{{i}}" *ngFor="let designation of designations; let i =index">{{ designation.designationName }}</option>                    
+                </select>
+            </div>
+            <div class="row">
+
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            &nbsp;&nbsp;
+            <button type="submit" class="btn btn-primary" [disabled]="!editEmployeeForm.valid">Save</button> &nbsp;&nbsp;
+            <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button> &nbsp;&nbsp;
+        </div>
+    </form>
+
+</div>

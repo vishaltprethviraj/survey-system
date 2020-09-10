@@ -1,0 +1,56 @@
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 style="color:gray;">Create Survey - Step 2</h1>
+    <h6>Click the add button to add questions</h6>
+    <br>
+
+    <div class="row">
+        <div class="col-xl-10">
+            <form [formGroup]="addSurveyQuestionForm">
+                <div class="row">
+                    <div class="col-xl-4">
+                        <button type="button" class="btn btn-primary" (click)="onAddQuestion()">Add Question</button>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <div class="row">
+                    <div class="col-xl-12" formArrayName="surveyQuestion">
+                        <div class="row" style="margin-top: 10px;" *ngFor="let optionCtrl of controls; let i=index" [formGroupName]="i">
+                            <div class="col-xl-6">
+                                Question
+                                <select formControlName="surveyQuestion" class="form-control" (change)="getOption($event.target.value);" onfocus="this.selectedIndex = -1;">
+                                <option value="{{i}}" *ngFor="let question of questions;let i=index">{{ question.question }}</option>                    
+                                </select>
+                            </div>
+                            <div class="col-xl-4">
+                                Options:
+                                <li *ngFor="let option of options;">
+                                    {{ option.options }}
+                                </li>
+                            </div>
+                            <div class=" col-xl-1 ">
+                                <br>
+                                <button type="button " class="btn btn-danger " (click)="onDeleteQuestion()">X</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+                </div>
+                <br>
+                <br>
+                <div class="row ">
+                    <div class="col-xl-4 ">
+                        <button type="submit " class="btn btn-success ">Submit</button> &nbsp;&nbsp;
+                        <button type="button " class="btn btn-danger ">Cancel</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Content Row -->
+
+</div>

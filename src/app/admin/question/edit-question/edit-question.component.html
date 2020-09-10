@@ -1,0 +1,45 @@
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 style="color:gray;">Update Question</h1>
+    <br>
+
+    <div class="row">
+        <div class="col-xl-10">
+            <form [formGroup]="editQuestionForm" (ngSubmit)="onSubmit()">
+                <div class="row">
+                    <div class="col-xl-5">
+                        Question
+                        <input type="text" class="form-control" formControlName="question">
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-xl-4">
+                        Options &nbsp;&nbsp;
+                        <button type="button" class="btn btn-success" (click)="onAddOption()">+</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-12" formArrayName="options">
+                        <div class="row" style="margin-top: 10px;" *ngFor="let optionCtrl of controls; let i=index" [formGroupName]="i">
+                            <div class="col-xl-4">
+                                <input type="text" class="form-control" formControlName="options">
+                            </div>
+                            <div class="col-xl-1">
+                                <button type="button" class="btn btn-danger" (click)="onDeleteOption(i)">X</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <div class="row">
+                    <div class="col-xl-4">
+                        <button type="submit" class="btn btn-success" [disabled]="!editQuestionForm.valid">Save</button>&nbsp;&nbsp;
+                        <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button> &nbsp;&nbsp;
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>

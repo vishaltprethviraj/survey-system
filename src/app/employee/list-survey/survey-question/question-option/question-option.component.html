@@ -1,0 +1,42 @@
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Survey 1</h1>
+    </div>
+    <form [formGroup]="surveyQuestion" (ngSubmit)="onSubmit()">
+        <p style="font-size: 22px;">{{ questions.question }}</p>
+        <div class="radio" *ngFor="let option of questions.option">
+            <label>
+            <input type="radio" formControlName="option" [value]="option">{{option.options}} 
+        </label>
+        </div>
+
+        <br>
+        <nav class="pagination-md">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link" style="cursor: pointer;" (click)="onPrevious()">Previous</a>
+                </li>
+                <li class="page-item" routerLinkActive="active" *ngFor="let i of indexOfQuestions">
+                    <a class="page-link" [routerLink]="['../',i]">{{ i+1 }}</a>
+                </li>
+                <!-- <li class="page-item" routerLinkActive="active">
+                <a class="page-link" [routerLink]="[1]">2</a>
+            </li>
+            <li class="page-item" routerLinkActive="active">
+                <a class="page-link" [routerLink]="[2]">3</a>
+            </li>
+            <li class="page-item" routerLinkActive="active">
+                <a class="page-link" [routerLink]="[3]">4</a>
+            </li> -->
+                <!-- <li class="page-item">
+                <a class="page-link" [routerLink]="[0]">5</a>
+            </li> -->
+                <li class="page-item" style="cursor: pointer;" (click)="onNext()" routerLinkActive="active">
+                    <button class="page-link" type="submit">Next</button>
+                </li>
+            </ul>
+        </nav>
+    </form>
+</div>

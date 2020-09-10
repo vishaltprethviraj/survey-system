@@ -1,0 +1,57 @@
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 style="color:gray;">Audit Log</h1>
+    <br>
+    <div class="row">
+        <div class="col-xl-3">
+            <label>Employee</label>
+            <select name="employee" id="employee" class="form-control">
+                      <option value="{{employee.id}}" *ngFor="let employee of employees">{{ employee.name }}</option>
+                      
+            </select>
+        </div>
+        <div class="col-xl-3">
+            <label>Page</label>
+            <select name="employee" id="employee" class="form-control">
+                      <option value="home">Home</option>
+                      <option value="createSurvey">Create Survey</option>
+                      <option value="employeeRegistration">Employee Registration</option>
+                    </select>
+        </div>
+        <div class="col-xl-3">
+            <label for="fromDate">From Date</label>
+            <input type="date" name="fromDate" id="fromDate" class="form-control">
+        </div>
+        <div class="col-xl-3">
+            <label for="toDate">To Date</label>
+            <input type="date" name="toDate" id="toDate" class="form-control">
+        </div>
+    </div>
+    <!-- Content Row -->
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Sl.No</th>
+                        <th>Employee Name</th>
+                        <th>Page</th>
+                        <th>Action</th>
+                        <th>Time Stamp</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let auditLog of auditLogs; let i = index ">
+                        <td>{{ i+1 }}</td>
+                        <td>{{ auditLog.employee[0].name }}</td>
+                        <td>{{ auditLog.page }}</td>
+                        <td>{{ auditLog.action }}</td>
+                        <td>{{ auditLog.timeStamp }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- /.container-fluid -->

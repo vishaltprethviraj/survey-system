@@ -1,0 +1,59 @@
+<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+    <!-- Topbar Navbar -->
+    <ul class="navbar-nav ml-auto">
+        <!-- Nav Item - Alerts -->
+        <li routerLinkActive="active">
+            <a style="cursor: pointer;" class="nav-link" style="margin-top:0.7rem;" routerLink="new-survey">
+                <fa-icon [icon]="faClipboardList"></fa-icon>&nbsp;&nbsp;New Survey</a>
+        </li>
+
+        <!-- Nav Item - Messages -->
+
+        <li routerLinkActive="active">
+            <a style="cursor: pointer;" class="nav-link" style="margin-top:0.7rem;" routerLink="new-employee">
+                <fa-icon [icon]="faUser"></fa-icon>&nbsp;&nbsp;New Employee
+            </a>
+        </li>
+
+        <li routerLinkActive="active">
+            <a style="cursor: pointer;" class="nav-link" style="margin-top:0.7rem;" routerLink="report">
+                <fa-icon [icon]="faBook"></fa-icon>&nbsp;&nbsp;Reports</a>
+        </li>
+
+        <div class="topbar-divider d-none d-sm-block"></div>
+
+        <!-- Nav Item - User Information -->
+
+        <li class="nav-item dropdown no-arrow" style="cursor: pointer;">
+            <a class="nav-item nav-link dropdown-toggle mr-md-2" (click)="onDropdownMenuClick()" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Username</span>
+                <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+            </a>
+            <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" data-toggle="modal" data-target="#logoutModal">
+                    <fa-icon [icon]="faPowerOff"></fa-icon> Logout </a>
+            </div>
+        </li>
+    </ul>
+
+</nav>
+
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">×</span>
+      </button>
+            </div>
+            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary" style="cursor:pointer" routerLink="/login" data-dismiss="modal">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>

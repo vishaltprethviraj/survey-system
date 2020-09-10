@@ -1,0 +1,94 @@
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+    <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" style="cursor: pointer;" routerLink="home">
+        <div class="sidebar-brand-icon rotate-n-15">
+            <fa-icon [icon]="faClipboardList" style="font-size: 2rem;"></fa-icon>
+        </div>
+        <div class="sidebar-brand-text mx-3">Survey System</div>
+    </a>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0">
+
+    <!-- Nav Item - Dashboard -->
+    <li routerLinkActive="nav-item active">
+        <a class="nav-link" style="cursor: pointer;" routerLink="home">
+            <fa-icon [icon]="faTachometerAlt"></fa-icon>
+            <span>&nbsp;&nbsp;Dashboard</span></a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!--Heading-->
+    <div class="sidebar-heading">
+        Audit Log
+    </div>
+    <li routerLinkActive="nav-item active">
+        <a class="nav-link" style="cursor: pointer;" routerLink="audit-log">
+            <span>Audit Log</span>
+        </a>
+    </li>
+
+    <hr class="sidebar-divider">
+
+    <div class="sidebar-heading">
+        Employee
+    </div>
+    <li routerLinkActive="nav-item active">
+        <a class="nav-link" style="cursor: pointer;" routerLink="employee-details">
+            <span>Employee Details</span>
+        </a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <div class="sidebar-heading">
+        Department Details
+    </div>
+
+    <li routerLinkActive="nav-item active">
+        <a class="nav-link" style="cursor: pointer;" routerLink="department">
+            <span>Department</span>
+        </a>
+    </li>
+    <li routerLinkActive="nav-item active">
+        <a class="nav-link" style="cursor: pointer;" routerLink="designation">
+            <span>Designation</span>
+        </a>
+    </li>
+
+    <!--Divider-->
+    <hr class="sidebar-divider">
+
+    <div class="sidebar-heading">
+        Questions
+    </div>
+    <li routerLinkActive="nav-item active">
+        <a class="nav-link" style="cursor: pointer;" routerLink="question">
+            <span>Question</span>
+        </a>
+    </li>
+
+    <hr class="sidebar-divider">
+
+    <div class="sidebar-heading">
+        Surveys
+    </div>
+
+    <li routerLinkActive="nav-item active">
+        <a class="nav-link" style="cursor: pointer;" routerLink="survey-list">
+            <span>List</span>
+        </a>
+    </li>
+
+    <hr class="sidebar-divider">
+
+    <!-- Sidebar Toggler (Sidebar) -->
+    <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
+
+</ul>

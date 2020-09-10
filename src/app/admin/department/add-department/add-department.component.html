@@ -1,0 +1,16 @@
+<form [formGroup]="addDepartmentForm" (ngSubmit)="onSubmit()">
+    <br>
+    <div class="row">
+        <div class="col-xl-4">
+            <label for="departmentName">Department Name</label>
+            <input type="text" class="form-control" id="departmentName" formControlName="departmentName">
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        &nbsp;&nbsp;
+        <button type="submit" class="btn btn-primary">Add</button> &nbsp;&nbsp; &nbsp;&nbsp;
+        <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button> &nbsp;&nbsp;
+    </div>
+
+</form>

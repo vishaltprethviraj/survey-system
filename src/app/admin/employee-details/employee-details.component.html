@@ -1,0 +1,52 @@
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 style="color:gray;">Employee Details</h1>
+    <!-- Content Row -->
+    <br>
+    <button type="button" class="btn btn-primary" (click)="onAddEmployee()">Add New</button>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Sl.No</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Name</th>
+                        <th>Phone Number</th>
+                        <th>Department</th>
+                        <th>Designation</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let employee of employees; let i=index;">
+                        <td> {{ i+1 }} </td>
+                        <td> {{ employee.username }}</td>
+                        <td>{{ employee.email }}</td>
+                        <td>{{ employee.name }}</td>
+                        <td>{{ employee.phoneNumber }}</td>
+                        <td>{{ employee.department[0].departmentName }}</td>
+                        <td>{{ employee.designation[0].designationName }}</td>
+                        <td>
+                            <a style="cursor: pointer;" (click)="onEditEmployee(i)">
+                                <fa-icon [icon]="faPencilAlt" style="color:#486dda;"></fa-icon>
+                            </a>
+                        </td>
+                        <td>
+                            <a style="cursor: pointer;" (click)="onDeleteEmployee(i)">
+                                <fa-icon [icon]="faTrash" style="color:#486dda;"></fa-icon>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- /.container-fluid -->

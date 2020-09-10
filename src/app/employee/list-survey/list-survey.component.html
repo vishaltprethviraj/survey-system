@@ -1,0 +1,57 @@
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">List of Pending Surveys</h1>
+    </div>
+
+    <!-- Content Row -->
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Sl.No</th>
+                        <th>Survey Name</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Survey 1</td>
+                        <td>22-08-2020</td>
+                        <td>26-08-2020</td>
+                        <td><button class="btn btn-success" type="button" (click)="onAttend()">Attend</button></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Survey 2</td>
+                        <td>22-08-2020</td>
+                        <td>24-08-2020</td>
+                        <td><button class="btn btn-success" type="button" disabled="true">Attend</button></td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Survey 3</td>
+                        <td>23-08-2020</td>
+                        <td>27-08-2020</td>
+                        <td><button class="btn btn-success" type="button" onclick="window.location.href='survey1.html'">Attend</button></td>
+
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Survey 4</td>
+                        <td>22-08-2020</td>
+                        <td>27-08-2020</td>
+                        <td><button class="btn btn-success" type="button" onclick="window.location.href='survey1.html'">Attend</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+</div>

@@ -1,0 +1,32 @@
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 style="color:gray;">{{name}}</h1>
+    <br>
+    <!-- Content Row -->
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Qn No.</th>
+                        <th>Question</th>
+                        <th>Options</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let question of questions; let i = index">
+                        <td>{{ i+1 }}</td>
+                        <td>{{ question.question }}</td>
+                        <td>
+                            <ul>
+                                <li *ngFor="let option of question.option">{{option.options}}</li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- /.container-fluid -->
