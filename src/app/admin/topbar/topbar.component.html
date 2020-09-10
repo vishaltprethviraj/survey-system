@@ -27,7 +27,7 @@
 
         <li class="nav-item dropdown no-arrow" style="cursor: pointer;">
             <a class="nav-item nav-link dropdown-toggle mr-md-2" (click)="onDropdownMenuClick()" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Username</span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ username }}</span>
                 <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
             </a>
             <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions">
@@ -52,7 +52,7 @@
             <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" style="cursor:pointer" routerLink="/login" data-dismiss="modal">Logout</a>
+                <button class="btn btn-primary" style="cursor:pointer" (click)="onLogout()" data-dismiss="modal">Logout</button>
             </div>
         </div>
     </div>

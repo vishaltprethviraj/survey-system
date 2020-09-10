@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
-import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { Department } from '../../department/department.model';
@@ -44,12 +44,15 @@ export class EditEmployeeComponent implements OnInit {
   onSubmit() {    
     this.departmentId = this.editEmployeeForm.value['department'];
     this.designationId = this.editEmployeeForm.value['designation'];    
-    const newEmployee = new Employee(this.editEmployeeForm.value['username'],
-                                    this.editEmployeeForm.value['name'],
+    const newEmployee = new Employee('5',
+                                    this.editEmployeeForm.value['username'],
+                                    '1234',
+                                    this.editEmployeeForm.value['name'],                                  
                                     this.editEmployeeForm.value['email'],
                                     this.editEmployeeForm.value['phoneNumber'],                                                                      
-                                    [this.adminService.getDepartments(this.departmentId)],
-                                    [this.adminService.getDesignations(this.designationId)]);
+                                    this.adminService.getDepartments(this.departmentId),
+                                    this.adminService.getDesignations(this.designationId),
+                                    { _id:'2',rolename:'employee'});
     this.adminService.updateEmployee(this.id,newEmployee);
     // console.log(this.newEmployeeForm);
     // console.log(newEmployee);    
@@ -77,7 +80,7 @@ export class EditEmployeeComponent implements OnInit {
         username = employee.username;
         name = employee.name;
         email = employee.email;
-        phoneNumber = employee.phoneNumber;
+        phoneNumber = employee.mobilephone;
         department = '0';
         designation = '1';
     }

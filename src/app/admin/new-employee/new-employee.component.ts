@@ -36,12 +36,15 @@ export class NewEmployeeComponent implements OnInit {
   onSubmit() {    
     this.departmentId = this.newEmployeeForm.value['department'];
     this.designationId = this.newEmployeeForm.value['designation'];    
-    const newEmployee = new Employee(this.newEmployeeForm.value['username'],
+    const newEmployee = new Employee('1',
+                                    this.newEmployeeForm.value['username'],
+                                    '1234',
                                     this.newEmployeeForm.value['name'],
                                     this.newEmployeeForm.value['email'],
                                     this.newEmployeeForm.value['phoneNumber'],                                                                      
-                                    [this.adminService.getDepartments(this.departmentId)],
-                                    [this.adminService.getDesignations(this.designationId)]);
+                                    this.adminService.getDepartments(this.departmentId),
+                                    this.adminService.getDesignations(this.designationId),
+                                    {_id:'1',rolename:'employee'});
     this.adminService.addEmployee(newEmployee);
     // console.log(this.newEmployeeForm);
     // console.log(newEmployee);

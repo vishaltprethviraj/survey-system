@@ -20,8 +20,8 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let designation of designations;let i = index">
-                        <td>{{ i+1 }}</td>
-                        <td>{{ designation.designationName }}</td>
+                        <td>{{ designation._id }}</td>
+                        <td>{{ designation.name }}</td>
                         <td>
                             <a style="cursor: pointer;" [routerLink]="[i,'edit']" (click)="scrollDown()">
                                 <fa-icon [icon]="faPencilAlt" style="color:#486dda;"></fa-icon>

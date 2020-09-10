@@ -48,13 +48,13 @@ export class AdminService {
 
     designationChanged = new Subject<Designation[]>();
     designations: Designation[] = [
-        new Designation('Regional Director'),
-        new Designation('System Architect'),
-        new Designation('Full Stack Developer'),
-        new Designation('Junior Software Engineer'),
-        new Designation('Software Engineer Trainee'),
-        new Designation('Accountant'),
-        new Designation('Business Analyst')
+        new Designation('1','Regional Director'),
+        new Designation('2','System Architect'),
+        new Designation('3','Full Stack Developer'),
+        new Designation('4','Junior Software Engineer'),
+        new Designation('5','Software Engineer Trainee'),
+        new Designation('6','Accountant'),
+        new Designation('7','Business Analyst')
       ];
     
     getDesignation() {
@@ -70,7 +70,7 @@ export class AdminService {
       this.designationChanged.next(this.designations.slice());
     }
 
-    updateDesignation(index:number,newDesignation:Designation) {
+    updateDesignation(index:string,newDesignation:Designation) {
       this.designations[index] = newDesignation;
       this.designationChanged.next(this.designations.slice());
     }
@@ -83,11 +83,10 @@ export class AdminService {
     //employee section
 
     employeeChanged = new Subject<Employee[]>();
-    startEditing = new Subject<number>();
-    
+    startEditing = new Subject<number>();    
     employees: Employee[] =[
-        new Employee('raju@1234','raju@gmail.com','Rajesh','9895476309',[this.departments[0]],[this.designations[2]]),
-        new Employee('sanju_2310','sanju@gmail.com','Sanjay','8089367521',[this.departments[2]],[this.designations[6]])
+        new Employee('1','raju@1234','1234','Rajesh','raju@gmail.com','9895476309',this.departments[0],this.designations[2],{_id:'1',rolename:'admin'}),
+        new Employee('2','sanju_2310','hdsh','Sanjay','sanju@gmail.com','8089367521',this.departments[2],this.designations[6],{_id:'2',rolename:'employee'})
       ];
 
     getEmployee() {

@@ -1,52 +1,61 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { throwError, Subject } from 'rxjs';
+import { throwError, BehaviorSubject } from 'rxjs';
 import  { catchError,tap } from 'rxjs/operators';
 
 import { User } from './user.model';
+import { Router } from '@angular/router';
 
 interface LoginResponseData {    
     // kind:string;
-    idToken: string;
+    message: string;
+    accesstoken: string;
+    refreshtoken: string;
+    roleid: string;
+    username: string;    
     email: string;
-    refreshToken: string;
-    expiresIn: string;
-    localId: string;    
-    registered: boolean;
+    expire:{ 
+        expiresIn:string
+    }
+    _id:string;
 }
 
 @Injectable( { providedIn:'root' })
 
 export class LoginService {
 
-    user = new Subject<User>();
+    user = new BehaviorSubject<User>(null);
 
     error:string = null;
-    constructor(private http:HttpClient){ }
+    constructor(private http:HttpClient,private router:Router){ }
 
     login(username:string,password:string) {                
-        return this.http.post<LoginResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCnW71LtmYCe-fFOiO1F-4j-7qCzl354c8',
+        return this.http.post<LoginResponseData>('http://74.208.150.171:3501/api/v1/login',
         {
-            email: username,
-            password: password,
-            returnSecureToken: true
+            username: username,
+            password: password,            
         }).pipe(catchError(this.handleError), tap(resData => {            
-            this.handleAuthentication(resData.email,resData.localId,resData.idToken,+resData.expiresIn);
+            this.handleAuthentication(resData.message,resData.accesstoken,resData.refreshtoken,resData.roleid,resData.username,resData.email,+resData.expire,resData._id);
         }));
         
     }
 
-    private handleAuthentication(email:string,userId:string,token:string,expiresIn:number) {
+    logout() {
+        this.user.next(null);
+        this.router.navigate(['/login']); 
+        localStorage.removeItem('userData');       
+    }
+
+    private handleAuthentication(message:string,accesstoken:string,refreshtoken:string,roleid:string,username:string,email:string,expiresIn:number,_id:string) {
         const expirationDate = new Date(
             new Date().getTime() + expiresIn * 1000
         );
            
-        const user = new User(email,userId,token,expirationDate);        
-        // this.user.next(user);        
-        //storing in local storage and retreiving it 
-        localStorage.setItem('user',JSON.stringify(user));
-        var retrievedItem = localStorage.getItem('user');
-        console.log('Retrieved Item: ',JSON.parse(retrievedItem));
+        const user = new User(message,accesstoken,refreshtoken,roleid,username,email,expirationDate,_id);        
+        this.user.next(user);                        
+        localStorage.setItem('userData',JSON.stringify(user));        
+        // var retrievedItem = localStorage.getItem('user');
+        // console.log('Retrieved Item: ',JSON.parse(retrievedItem));
     }
 
     private handleError(errorRes: HttpErrorResponse) {

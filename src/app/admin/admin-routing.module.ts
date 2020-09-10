@@ -21,13 +21,14 @@ import { EditQuestionComponent } from './question/edit-question/edit-question.co
 import { EditEmployeeComponent } from './employee-details/edit-employee/edit-employee.component';
 import { SurveyDetailComponent } from './survey-list/survey-detail/survey-detail.component';
 import { AddSurveyQuestionComponent } from './new-survey/add-survey-question/add-survey-question.component';
+import { AuthGuard } from '../login/auth.guard';
 
 const routes: Routes = [
-    { path: 'admin' , component : AdminComponent, 
-    
-    children: [        
-         { path: '', component: HomeComponent },
-         { path: 'home', component: HomeComponent},
+    { path: 'admin' , 
+      component : AdminComponent, 
+      canActivate:[AuthGuard],
+      children: [                 
+         { path: '', component: HomeComponent},
          { path: 'audit-log', component: AuditLogComponent },
          { path: 'employee-details', children: [
              { path: '', component: EmployeeDetailsComponent , pathMatch:'full'},

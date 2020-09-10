@@ -1,9 +1,13 @@
 export class User {
     constructor(
+        public message:string,
+        public _token:string,
+        public refreshtoken:string,
+        public roleid:string,
         public username:string,
-        public password:string,
-        private _token:string,
-        private _tokenExpirationDate:Date
+        public email:string,
+        public _tokenExpirationDate:Date,
+        public _id:string
     ){}
 
     get token() {

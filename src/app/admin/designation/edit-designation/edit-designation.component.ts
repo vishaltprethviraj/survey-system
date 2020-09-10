@@ -11,7 +11,7 @@ import { Designation } from '../designation.model';
 })
 export class EditDesignationComponent implements OnInit {
   
-  id: number;
+  id: string;
   editMode = false;
 
   editDesignationForm: FormGroup;
@@ -22,7 +22,7 @@ export class EditDesignationComponent implements OnInit {
     this.route.params
       .subscribe(
         (params: Params) => {
-          this.id = +params['id'];
+          this.id = params['id'];
           this.editMode = params['id'] != null;
           this.initForm();          
         }
@@ -30,7 +30,7 @@ export class EditDesignationComponent implements OnInit {
   }
 
   onSubmit() {
-    const newDesignation = new Designation(this.editDesignationForm.value['designationName']) ;
+    const newDesignation = new Designation(this.id,this.editDesignationForm.value['designationName']) ;
     if(this.editMode) {
       this.adminService.updateDesignation(this.id,newDesignation);
     }       
@@ -47,7 +47,7 @@ export class EditDesignationComponent implements OnInit {
     
     if (this.editMode) {
       const designation = this.adminService.getDesignations(this.id);
-      designationName = designation.designationName;
+      designationName = designation.name;
     }
     this.editDesignationForm = new FormGroup({
       'designationName': new FormControl(designationName) 

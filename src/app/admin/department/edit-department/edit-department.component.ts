@@ -48,7 +48,7 @@ export class EditDepartmentComponent implements OnInit {
     
     if (this.editMode) {
       const department = this.adminService.getDepartments(this.id);
-      departmentName = department.departmentName;
+      departmentName = department.name;
     }
     this.editDepartmentForm = new FormGroup({
       'departmentName': new FormControl(departmentName) 

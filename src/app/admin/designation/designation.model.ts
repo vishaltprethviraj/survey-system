@@ -1,7 +1,9 @@
 export class Designation {    
-    public designationName: string;
+    public _id: string;
+    public name: string;
 
-    constructor(designationName:string){        
-        this.designationName = designationName;
+    constructor(_id:string,designationName:string){        
+        this._id = _id;
+        this.name = designationName;
     }
 }

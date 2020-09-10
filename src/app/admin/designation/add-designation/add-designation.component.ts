@@ -22,8 +22,8 @@ export class AddDesignationComponent implements OnInit {
   }
 
   onSubmit() {
-    const newDesgination = new Designation(this.addDesignationForm.value['designationName']);    
-    this.adminService.addDesignation(newDesgination); 
+    const newDesignation = new Designation('5',this.addDesignationForm.value['designationName']);    
+    this.adminService.addDesignation(newDesignation); 
     this.onCancel(); 
   }
 

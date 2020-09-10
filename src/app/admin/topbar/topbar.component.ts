@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 import { faClipboardList,faUser,faBook,faCaretRight,faCaretLeft,faPowerOff } from '@fortawesome/free-solid-svg-icons'
+import { LoginService } from 'src/app/login/login.service';
+import { Router } from '@angular/router';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-topbar',
@@ -21,10 +24,17 @@ export class TopbarComponent implements OnInit {
   onDropdownMenuClick(){
     this.isOpen = !this.isOpen;
   }
-  
-  constructor() { }
+    
+  constructor(private loginService:LoginService,private router:Router) { }
+  username:string;
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
+    const userData = JSON.parse(localStorage.getItem('userData'));
+    this.username = userData.username;     
+  }
+  
+  onLogout() {
+    this.loginService.logout();    
   }
 
 }

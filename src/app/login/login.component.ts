@@ -4,6 +4,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import {  faClipboardList } from '@fortawesome/free-solid-svg-icons';
 import { LoginService } from './login.service';
 import { Router } from '@angular/router';
+import { User } from './user.model';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -27,6 +29,8 @@ export class LoginComponent implements OnInit {
     });
   }
   
+  user:User[];
+
   onSubmit() {
     // console.log(this.loginForm);
     if(!this.loginForm.valid) {
@@ -34,11 +38,16 @@ export class LoginComponent implements OnInit {
     }
     const username = this.loginForm.value['username'];
     const password = this.loginForm.value['password'];
-
+    
     this.loginService.login(username,password).subscribe(
       resData => {
-        console.log(resData);
-        this.router.navigate(['/admin/home']);
+        if(resData.message == "admin") {
+          this.router.navigate(['/admin']);                         
+        }
+        else {
+          this.router.navigate(['/employee/home']);
+        }
+        
       },
       errorMessage => {
         console.log(errorMessage);

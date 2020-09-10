@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { LoginService } from '../login/login.service';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-employee',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EmployeeComponent implements OnInit {
 
-  constructor() { }
+  username:string;
+
+  constructor(private loginService:LoginService) { }
 
   ngOnInit(): void {
+        
   }
 
 }

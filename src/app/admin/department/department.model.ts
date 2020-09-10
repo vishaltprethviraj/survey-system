@@ -1,9 +1,9 @@
 export class Department {    
-    public departmentId: number;
-    public departmentName: string;
+    public _id: number;
+    public name: string;
 
     constructor(departmentId:number,departmentName:string) {        
-        this.departmentId = departmentId;
-        this.departmentName = departmentName;
+        this._id = departmentId;
+        this.name = departmentName;
     }
 }
