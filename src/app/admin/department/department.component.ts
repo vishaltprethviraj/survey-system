@@ -1,9 +1,14 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, AfterViewInit } from '@angular/core';
 import { faPencilAlt,faTrash} from '@fortawesome/free-solid-svg-icons';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { Department } from './department.model';
 import { AdminService } from '../admin.service';
 import { Router, ActivatedRoute,Params } from '@angular/router';
+import { DataStorageService } from 'src/app/shared/data-storage.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { NgForm } from '@angular/forms';
+
 
 @Component({
   selector: 'app-department',
@@ -15,28 +20,60 @@ export class DepartmentComponent implements OnInit {
   //required Icons
   faPencilAlt = faPencilAlt;
   faTrash = faTrash;  
+  id:string;
   
-  departments: Department[]; 
-  
-  constructor(private adminService:AdminService,private router:Router,private route:ActivatedRoute) { }
+  @ViewChild('f',{static:false}) newEmployeeForm: NgForm;
 
-  ngOnInit(): void {
-    this.adminService.departmentChanged
-      .subscribe(
-        (departments: Department[]) => {
-          this.departments = departments;
-        }
-      );
-    this.departments = this.adminService.getDepartment();
+  constructor(private adminService:AdminService,private router:Router,private route:ActivatedRoute,private dataStorageService:DataStorageService,private http:HttpClient,private modalService:NgbModal) { }
+
+  departments: Department[];
+  
+  ngOnInit(): void {   
+      this.dataStorageService.departmentList().subscribe(departments => {                  
+      this.adminService.setDepartment(departments);               
+    },              
+      errorRes => {
+        console.log(errorRes);
+      }      
+     );   
+     this.adminService.departmentChanged
+    .subscribe(
+      (departments: Department[]) => {
+        this.departments = departments;
+      }
+    );    
   }
-
+   
   onAddDepartment() {
-    this.router.navigate(['add'],{relativeTo: this.route})  
+    this.router.navigate(['add'],{relativeTo: this.route});
+    this.scrollDown();
   }
+ 
+  
+  scrollDown() {
+    var scrollingElement = (document.scrollingElement || document.body);
+    scrollingElement.scrollTop = scrollingElement.scrollHeight;
+  }
+  
+  openModal(targetModal, department) {
+    this.modalService.open(targetModal, {
+     centered: true,
+     backdrop: 'static'
+    });
+   this.id = department._id; 
+   console.log(this.id);   
+   }
 
-  onDeleteDepartment(i) {   
-    this.adminService.deleteDepartment(i);    
-    console.log(i);
-  }
+   onDeleteDepartment() {
+    console.log(this.id);
+    const userData = JSON.parse(localStorage.getItem('userData')) ;
+    this.http.delete('http://74.208.150.171:3501/api/v1/department/'+ this.id).subscribe(res => {
+    this.adminService.deleteDepartment(this.id);    
+  },
+  error => {
+    console.log(error);
+  }); 
+  this.modalService.dismissAll();       
+   }
 
 }

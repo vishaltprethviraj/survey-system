@@ -25,7 +25,7 @@ export class NewEmployeeComponent implements OnInit {
 
   @ViewChild('f',{static:false}) newEmployeeForm: NgForm;
    
-  defaultDepartment = '0' 
+  defaultDepartment = '0' ;
   defaultDesignation = '0'; 
 
   ngOnInit(): void {  

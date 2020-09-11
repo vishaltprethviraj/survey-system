@@ -10646,7 +10646,7 @@ a:focus {
 
 .sidebar {
     width: 6.5rem;
-    min-height: 150vh;
+    min-height: 80rem;
 }
 
 .sidebar .nav-item {
@@ -11595,5 +11595,13 @@ body.sidebar-toggled footer.sticky-footer {
     width: 100%;
     min-height: 100vh;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}

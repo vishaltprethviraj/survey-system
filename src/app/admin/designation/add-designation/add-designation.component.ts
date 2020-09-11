@@ -3,7 +3,8 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Designation } from '../designation.model';
 import { AdminService } from '../../admin.service';
-
+import { DataStorageService } from '../../../shared/data-storage.service';
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-add-designation',
   templateUrl: './add-designation.component.html',
@@ -11,7 +12,7 @@ import { AdminService } from '../../admin.service';
 })
 export class AddDesignationComponent implements OnInit {
 
-  constructor(private router:Router,private adminService:AdminService) { }
+  constructor(private router:Router,private adminService:AdminService,private dataStorageService:DataStorageService,private http:HttpClient) { }
 
   addDesignationForm: FormGroup;
 
@@ -22,8 +23,13 @@ export class AddDesignationComponent implements OnInit {
   }
 
   onSubmit() {
-    const newDesignation = new Designation('5',this.addDesignationForm.value['designationName']);    
-    this.adminService.addDesignation(newDesignation); 
+    const designationName = this.addDesignationForm.value['designationName'];    
+    this.http.post<Designation>('http://74.208.150.171:3501/api/v1/designation', 
+                                 {
+                                  name:designationName
+                                 }).subscribe(newDesignation => {
+                                   this.adminService.addDesignation(newDesignation);
+                                 });        
     this.onCancel(); 
   }
 

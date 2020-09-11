@@ -19,35 +19,36 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let designation of designations;let i = index">
-                        <td>{{ designation._id }}</td>
+                    <tr *ngFor="let designation of this.adminService.designations;let i = index">
+                        <td>{{ i+1 }}</td>
                         <td>{{ designation.name }}</td>
                         <td>
-                            <a style="cursor: pointer;" [routerLink]="[i,'edit']" (click)="scrollDown()">
+                            <a style="cursor: pointer;" [routerLink]="[designation._id,'edit']" (click)="scrollDown()">
                                 <fa-icon [icon]="faPencilAlt" style="color:#486dda;"></fa-icon>
                             </a>
                         </td>
                         <td>
-                            <a style="cursor:pointer" data-toggle="modal" data-target="#deleteModal" [index]=[i]>
+                            <a style="cursor:pointer" (click)="openModal(deleteModal, designation)">
                                 <fa-icon [icon]="faTrash" style="color:#486dda;"></fa-icon>
                             </a>
-                            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
-                                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">×</span>
-                                  </button>
-                                        </div>
-                                        <div class="modal-body">Are you sure you want to delete this?</div>
-                                        <div class="modal-footer">
-                                            <button class="btn btn-secondary" type="button" data-dismiss="modal">No</button>
-                                            <a class="btn btn-primary" style="cursor:pointer;color:white" data-dismiss="modal" (click)="onDeleteDesignation(i)">Yes</a>
-                                        </div>
-                                    </div>
+                            <ng-template #deleteModal let-modal>
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="deleteDepartmentLabel">Delete</h5>
+                                    <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                 </button>
                                 </div>
-                            </div>
+
+                                <div class="modal-body">
+                                    <form (ngSubmit)="onDeleteDesignation()" #f="ngForm">
+                                        Are you sure you want to delete this?
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">No</button>
+                                            <button type="submit" class="btn btn-primary">Yes</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </ng-template>
                         </td>
 
                     </tr>

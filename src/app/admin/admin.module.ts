@@ -28,7 +28,6 @@ import { SurveyDetailComponent } from './survey-list/survey-detail/survey-detail
 import { AddSurveyQuestionComponent } from './new-survey/add-survey-question/add-survey-question.component';
 import { DatePipe } from '@angular/common';
 
-
 @NgModule({
   declarations: [
     AdminComponent,
@@ -76,7 +75,7 @@ import { DatePipe } from '@angular/common';
     SidebarComponent,
     TopbarComponent,
     AddDepartmentComponent,
-    EditDepartmentComponent,
+    EditDepartmentComponent,   
     EditEmployeeComponent,
     SurveyDetailComponent   
   ],

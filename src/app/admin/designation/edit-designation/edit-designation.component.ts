@@ -3,6 +3,8 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { AdminService } from '../../admin.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Designation } from '../designation.model';
+import { DataStorageService } from 'src/app/shared/data-storage.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-edit-designation',
@@ -16,7 +18,7 @@ export class EditDesignationComponent implements OnInit {
 
   editDesignationForm: FormGroup;
 
-  constructor(private router:Router,private route:ActivatedRoute,private adminService:AdminService) { }
+  constructor(private router:Router,private route:ActivatedRoute,private adminService:AdminService,private dataStorageService:DataStorageService,private http:HttpClient) { }
 
   ngOnInit(): void {
     this.route.params
@@ -30,10 +32,17 @@ export class EditDesignationComponent implements OnInit {
   }
 
   onSubmit() {
-    const newDesignation = new Designation(this.id,this.editDesignationForm.value['designationName']) ;
-    if(this.editMode) {
-      this.adminService.updateDesignation(this.id,newDesignation);
-    }       
+    const designationName = this.editDesignationForm.value['designationName'] ;
+    this.http.patch<Designation>('http://74.208.150.171:3501/api/v1/designation/'+ this.id,
+          { 
+            name: designationName
+          }) 
+          .subscribe(editedDesignation => {
+                     console.log(editedDesignation);  
+                     this.adminService.updateDesignation(designationName,editedDesignation._id);                             
+              },error=> {
+                console.log(error)
+           });     
     window.scroll(0,0); 
     this.onCancel();
   }
@@ -42,15 +51,18 @@ export class EditDesignationComponent implements OnInit {
     this.router.navigate(['/admin/designation']);
   }
 
-  private initForm() {
-    let designationName=''
+  private initForm() {    
+        
+    this.dataStorageService.getDesignation(this.id).subscribe(
+        designation => {
+          this.editDesignationForm = new FormGroup({
+            'designationName': new FormControl(designation.name) 
+          })       
+        }
+      );      
     
-    if (this.editMode) {
-      const designation = this.adminService.getDesignations(this.id);
-      designationName = designation.name;
-    }
     this.editDesignationForm = new FormGroup({
-      'designationName': new FormControl(designationName) 
+      'designationName': new FormControl(null) 
     });
   }
 }

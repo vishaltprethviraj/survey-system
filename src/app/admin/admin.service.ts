@@ -5,57 +5,58 @@ import { Question } from './question/question.model';
 import { Option } from './question/option.model';
 import { Survey } from './survey-list/survey.model';
 import { AuditLog } from './audit-log/audit-log.model';
-import { Subject } from 'rxjs';
+import { Subject, BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
+import { ConstantPool } from '@angular/compiler';
 
 @Injectable( { providedIn:'root' }) 
 
 export class AdminService {
     
     //department section
-    departmentChanged = new Subject<Department[]>();
-
-    departments: Department[] = [
-        new Department(1,'Web Development'),
-        new Department(2,'Analytics'),
-        new Department(3,'Business'),
-        new Department(4,'Accountancy')
-      ];
-
-    getDepartment(){
-        return this.departments.slice();    
+    departmentChanged = new Subject<Department[]>();    
+    departments: Department[] = [];
+    
+    setDepartment(department:Department[]){
+      this.departments = department;
+      this.departmentChanged.next(this.departments.slice());      
     }
-
-    getDepartments(index:number) {
-      return this.departments[index];
-    }
-
+    
     addDepartment(department:Department) {
       this.departments.push(department);
       this.departmentChanged.next(this.departments.slice());
     }
-
-    updateDepartment(index:number, newDepartment:Department) {
-      this.departments[index] = newDepartment;
+    
+    selectedDepartment:Department[];
+    
+    updateDepartment(departmentName:string,id:string) {      
+      
+      this.selectedDepartment = this.departments.filter(department => 
+        department._id == id                    
+      ); 
+      let index = this.departments.indexOf(this.selectedDepartment[0]);     
+      this.departments[index]._id = id;
+      this.departments[index].name = departmentName;
       this.departmentChanged.next(this.departments.slice());
     }
 
-    deleteDepartment(index:number) {
+    deleteDepartment(id:string) {
+      this.selectedDepartment = this.departments.filter(department => 
+        department._id == id                    
+      ); 
+      let index = this.departments.indexOf(this.selectedDepartment[0]);
       this.departments.splice(index,1);
       this.departmentChanged.next(this.departments.slice());
     }
     //designation section
 
     designationChanged = new Subject<Designation[]>();
-    designations: Designation[] = [
-        new Designation('1','Regional Director'),
-        new Designation('2','System Architect'),
-        new Designation('3','Full Stack Developer'),
-        new Designation('4','Junior Software Engineer'),
-        new Designation('5','Software Engineer Trainee'),
-        new Designation('6','Accountant'),
-        new Designation('7','Business Analyst')
-      ];
+    designations: Designation[] = [];
+
+    setDesignation(designation:Designation[]) {
+      this.designations = designation;
+      this.designationChanged.next(this.designations.slice());
+    }
     
     getDesignation() {
       return this.designations.slice();
@@ -70,12 +71,19 @@ export class AdminService {
       this.designationChanged.next(this.designations.slice());
     }
 
-    updateDesignation(index:string,newDesignation:Designation) {
-      this.designations[index] = newDesignation;
-      this.designationChanged.next(this.designations.slice());
+    selectedDesignation:Designation[];
+
+    updateDesignation(designationName:string,id:string) {
+      this.selectedDesignation = this.designations.filter(designation => designation._id == id);
+      let index = this.designations.indexOf(this.selectedDesignation[0]);
+      this.designations[index].name = designationName;
+      this.designations[index]._id = id;
+      this.designationChanged.next(this.departments.slice());
     }
 
-    deleteDesignation(index:number) {
+    deleteDesignation(id:string) {
+      this.selectedDesignation = this.designations.filter(designation => designation._id == id);
+      let index = this.designations.indexOf(this.selectedDesignation[0]);            
       this.designations.splice(index,1);
       this.designationChanged.next(this.designations.slice());
     }

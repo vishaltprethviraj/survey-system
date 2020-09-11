@@ -29,6 +29,7 @@ const routes: Routes = [
       canActivate:[AuthGuard],
       children: [                 
          { path: '', component: HomeComponent},
+         { path: 'home', component: HomeComponent},
          { path: 'audit-log', component: AuditLogComponent },
          { path: 'employee-details', children: [
              { path: '', component: EmployeeDetailsComponent , pathMatch:'full'},

@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 
 interface LoginResponseData {    
     // kind:string;
-    message: string;
+    role: string;
     accesstoken: string;
     refreshtoken: string;
     roleid: string;
@@ -35,7 +35,7 @@ export class LoginService {
             username: username,
             password: password,            
         }).pipe(catchError(this.handleError), tap(resData => {            
-            this.handleAuthentication(resData.message,resData.accesstoken,resData.refreshtoken,resData.roleid,resData.username,resData.email,+resData.expire,resData._id);
+            this.handleAuthentication(resData.role,resData.accesstoken,resData.refreshtoken,resData.roleid,resData.username,resData.email,+resData.expire,resData._id);
         }));
         
     }
@@ -43,7 +43,8 @@ export class LoginService {
     logout() {
         this.user.next(null);
         this.router.navigate(['/login']); 
-        localStorage.removeItem('userData');       
+        localStorage.removeItem('userData');
+        localStorage.removeItem('departmentData');       
     }
 
     private handleAuthentication(message:string,accesstoken:string,refreshtoken:string,roleid:string,username:string,email:string,expiresIn:number,_id:string) {
@@ -60,12 +61,14 @@ export class LoginService {
 
     private handleError(errorRes: HttpErrorResponse) {
         let errorMessage = 'An unknown error occured!';
-        if(!errorRes.error || !errorRes.error.error) {
+        if(!errorRes.message) {
             return throwError(errorMessage);
         }
-        switch(errorRes.error.error.message) {
-            case 'EMAIL_EXISTS':
-                errorMessage = 'This email exists already';
+        switch(errorRes.message) {
+            case 'WRONG PASSWORD':
+                errorMessage = 'Invalid Password';
+            case 'USER NOT FOUND':
+                errorMessage = 'This user does not exist'
         }
         return throwError(errorMessage);
     }

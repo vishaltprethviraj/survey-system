@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.loginForm = new FormGroup({
       'username': new FormControl(null,Validators.required),
-      'password': new FormControl('',[Validators.required,Validators.minLength(6)])
+      'password': new FormControl('',[Validators.required,Validators.minLength(5)])
     });
   }
   
@@ -41,8 +41,9 @@ export class LoginComponent implements OnInit {
     
     this.loginService.login(username,password).subscribe(
       resData => {
-        if(resData.message == "admin") {
-          this.router.navigate(['/admin']);                         
+        console.log(resData);
+        if(resData.role == "admin") {
+          this.router.navigate(['/admin/home']);                         
         }
         else {
           this.router.navigate(['/employee/home']);
