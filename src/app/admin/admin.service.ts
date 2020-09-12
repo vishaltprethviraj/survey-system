@@ -104,8 +104,8 @@ export class AdminService {
       this.employees[index].name = name;
       this.employees[index].email = email;
       this.employees[index].mobilephone = mobilephone;
-      this.employees[index].departmentid = this.departments
-      this.employees[index].designationid = this.designations;
+      this.employees[index].departmentid[0] = departmentId;
+      this.employees[index].designationid[0] = designationId;
       this.employeeChanged.next(this.employees.slice());
     }
 
@@ -132,50 +132,30 @@ export class AdminService {
 
     questionChanged = new Subject<Question[]>();
 
-    questions:Question[] = [
-      new Question("What other apps would you like to see us offer?",[
-        new Option('Survey App'),
-        new Option('Shopping App'),
-        new Option('Learning App')
-      ]),
-      new Question("If you could change just one thing about our product, what would it be?",[
-        new Option('Reduce the Price'),
-        new Option('Improve the Quality'),
-        new Option('Fast and Effecient Maintainance')
-      ]),
-      new Question("What are you using this product for?",[
-        new Option('Personal'),
-        new Option('Business'),
-        new Option('Social')
-      ]),
-      new Question("How strongly do you agree with following statement: company's payment proceess is simple",[        
-        new Option('Agree'),
-        new Option('Disagree'),        
-        new Option('Can\'t say'),
-      ]),
-
-    ];
-
-    getQuestion() {
-      return this.questions.slice();
-    }
-
-    getQuestions(index:number) {
-      return this.questions[index];
-    }
+    questions:Question[] = [];     
     
-
+    setQuestion(question:Question[]) {
+      this.questions = question;
+      this.questionChanged.next(this.questions.slice());
+    }  
+    
     addQuestion(question:Question) {
       this.questions.push(question);
       this.questionChanged.next(this.questions.slice());
     }
 
-    updateQuestion(index:number,newQuestion:Question) {
+    selectedQuestion:Question[];
+
+    updateQuestion(id:string,newQuestion:Question) {
+      this.selectedQuestion = this.questions.filter(question => question._id == id);
+      let index = this.questions.indexOf(this.selectedQuestion[0]);
       this.questions[index] = newQuestion;      
       this.questionChanged.next(this.questions.slice());
     }
 
-    deleteQuestion(index:number) {
+    deleteQuestion(id:string) {
+      this.selectedQuestion = this.questions.filter(question => question._id == id);
+      let index = this.questions.indexOf(this.selectedQuestion[0]);                        
       this.questions.splice(index,1),
       this.questionChanged.next(this.questions.slice());
     }
@@ -183,10 +163,15 @@ export class AdminService {
     //survey section
     surveyChanged = new Subject<Survey[]>();
 
-    surveys: Survey[] = [
-      new Survey('Product Survey','This survey is for knowing the user\'s take on various aspects of our product',
-                 'Thank you for your valuable suggestion','25-08-2020','27-08-2020')];
+    surveys: Survey[] = [];
+      // new Survey('Product Survey','This survey is for knowing the user\'s take on various aspects of our product',
+      //            'Thank you for your valuable suggestion','25-08-2020','27-08-2020')
 
+    setSurvey(survey:Survey[]) {
+      this.surveys = survey;
+      this.surveyChanged.next(this.surveys.slice());
+    }
+      
     getSurvey() {
       return this.surveys.slice();
     }

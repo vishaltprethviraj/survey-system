@@ -24,9 +24,9 @@ export class DepartmentComponent implements OnInit {
   
   @ViewChild('f',{static:false}) newEmployeeForm: NgForm;
 
-  constructor(private adminService:AdminService,private router:Router,private route:ActivatedRoute,private dataStorageService:DataStorageService,private http:HttpClient,private modalService:NgbModal) { }
+  constructor(public adminService:AdminService,private router:Router,private route:ActivatedRoute,private dataStorageService:DataStorageService,private http:HttpClient,private modalService:NgbModal) { }
 
-  departments: Department[];
+  departments: Department[] = this.adminService.departments;
   
   ngOnInit(): void {     
      this.adminService.departmentChanged

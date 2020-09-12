@@ -19,7 +19,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let designation of this.adminService.designations;let i = index">
+                    <tr *ngFor="let designation of designations;let i = index">
                         <td>{{ i+1 }}</td>
                         <td>{{ designation.name }}</td>
                         <td>

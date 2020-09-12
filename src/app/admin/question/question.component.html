@@ -23,21 +23,39 @@
                 <tbody>
                     <tr *ngFor="let question of questions;let i = index">
                         <td> {{ i+1 }}</td>
-                        <td>{{ question.question }}</td>
+                        <td>{{ question.description }}</td>
                         <td>
                             <ol>
-                                <li *ngFor="let option of question.option">{{option.options}}</li>
+                                <li *ngFor="let option of question.options;let i=index">{{option}}</li>
                             </ol>
                         </td>
                         <td>
-                            <a style="cursor: pointer;" [routerLink]="[i,'edit']">
+                            <a style="cursor: pointer;" [routerLink]="[question._id,'edit']">
                                 <fa-icon [icon]="faPencilAlt" style="color:#486dda;"></fa-icon>
                             </a>
                         </td>
                         <td>
-                            <a style="cursor: pointer;" (click)="onDeleteQuestion(i)">
+                            <a style="cursor:pointer" (click)="openModal(deleteModal, question)">
                                 <fa-icon [icon]="faTrash" style="color:#486dda;"></fa-icon>
                             </a>
+                            <ng-template #deleteModal let-modal>
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="deleteQuestionLabel">Delete</h5>
+                                    <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                 </button>
+                                </div>
+
+                                <div class="modal-body">
+                                    <form (ngSubmit)="onDeleteDepartment()" #f="ngForm">
+                                        Are you sure you want to delete this?
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">No</button>
+                                            <button type="submit" class="btn btn-primary">Yes</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </ng-template>
                         </td>
                     </tr>
                 </tbody>

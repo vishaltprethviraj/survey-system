@@ -22,14 +22,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let employee of this.adminService.employees; let i=index;">
+                    <tr *ngFor="let employee of employees; let i=index;">
                         <td> {{ i+1 }} </td>
                         <td> {{ employee.username }}</td>
                         <td>{{ employee.email }}</td>
                         <td>{{ employee.name }}</td>
                         <td>{{ employee.mobilephone }}</td>
-                        <td>{{ employee.departmentid[0] }}</td>
-                        <td>{{ employee.email }}</td>
+                        <td>{{ employee.departmentid.name }}</td>
+                        <td>{{ employee.designationid.name }}</td>
                         <td>
                             <a style="cursor: pointer;" [routerLink]="[employee._id,'edit']">
                                 <fa-icon [icon]="faPencilAlt" style="color:#486dda;"></fa-icon>

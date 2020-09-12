@@ -18,7 +18,7 @@ export class EmployeeDetailsComponent implements OnInit {
   faPencilAlt = faPencilAlt;
   faTrash = faTrash;
   
-  employees: Employee[];
+  employees: Employee[] = this.adminService.employees;
 
   id:string;
 
@@ -37,7 +37,7 @@ export class EmployeeDetailsComponent implements OnInit {
         this.employees = employees;
       }
     );
-    
+        
   }
 
   onAddEmployee() {

@@ -31,11 +31,11 @@ export class AddSurveyQuestionComponent implements OnInit {
       })
     );
     
-    this.questions = this.adminService.getQuestion();      
+    // this.questions = this.adminService.getQuestion();      
   }
 
   getOption(index:number) {
-    this.options = this.questions[index].option;
+    // this.options = this.questions[index].option;
     console.log(index);
   }
 

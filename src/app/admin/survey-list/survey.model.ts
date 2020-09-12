@@ -1,19 +1,21 @@
 import { Question } from '../question/question.model';
 
-export class Survey {    
+export class Survey { 
+    public _id:string   
     public name: string;
     public description: string;
-    public thankYouMessage: string;
-    public startDate: string;
-    public endDate: string;      
+    public thank_you_message: string;
+    public start_date: Date;
+    public end_date: Date;      
     
-    constructor(name:string,description:string,
-                thankYouMessage:string,startDate:string,endDate:string
+    constructor(_id:string,name:string,description:string,
+                thankYouMessage:string,startDate:Date,endDate:Date
             ) {                
+                this._id = _id;
                 this.name = name;
                 this.description = description;
-                this.thankYouMessage = thankYouMessage;
-                this.startDate = startDate;
-                this.endDate = endDate;                
+                this.thank_you_message = thankYouMessage;
+                this.start_date = startDate;
+                this.end_date = endDate;                
              }
 }

@@ -19,9 +19,9 @@ export class DesignationComponent implements OnInit {
   faTrash = faTrash;
 
   id:string;
-  designations: Designation[];
+  designations: Designation[] = this.adminService.designations;
 
-  constructor(private adminService: AdminService,private router:Router,private route:ActivatedRoute,private dataStorageService:DataStorageService,private modalService:NgbModal,private http:HttpClient) { }
+  constructor(public adminService: AdminService,private router:Router,private route:ActivatedRoute,private dataStorageService:DataStorageService,private modalService:NgbModal,private http:HttpClient) { }
 
   ngOnInit(): void {
         

@@ -3,7 +3,6 @@ import { Question } from 'src/app/admin/question/question.model';
 import { FormGroup, FormControl } from '@angular/forms';
 import { AdminService } from 'src/app/admin/admin.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { stringify } from '@angular/compiler/src/util';
 import { Option } from 'src/app/admin/question/option.model';
 
 @Component({
@@ -28,7 +27,7 @@ export class QuestionOptionComponent implements OnInit {
     .subscribe(
       (params: Params) => {
         this.id = +params['id'];        
-        this.questions = this.adminService.getQuestions(this.id);
+        // this.questions = this.adminService.getQuestions(this.id);
       }
     ); 
     this.surveyQuestion = new FormGroup({

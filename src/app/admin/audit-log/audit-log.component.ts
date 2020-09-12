@@ -16,7 +16,7 @@ export class AuditLogComponent implements OnInit {
   auditLogs: AuditLog[];
 
   ngOnInit(): void {
-    this.employees = this.adminService.getEmployee();
+    // this.employees = this.adminService.getEmployee();
     this.auditLogs = this.adminService.getAuditLog();
     console.log(this.auditLogs);
   }

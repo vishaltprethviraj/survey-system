@@ -18,6 +18,8 @@ interface LoginResponseData {
         expiresIn:string
     }
     _id:string;
+    message:string;
+    messgae:string;
 }
 
 @Injectable( { providedIn:'root' })
@@ -34,7 +36,7 @@ export class LoginService {
         {
             username: username,
             password: password,            
-        }).pipe(catchError(this.handleError), tap(resData => {            
+        }).pipe(tap(resData => {            
             this.handleAuthentication(resData.role,resData.accesstoken,resData.refreshtoken,resData.roleid,resData.username,resData.email,+resData.expire,resData._id);
         }));
         
@@ -60,17 +62,17 @@ export class LoginService {
         // console.log('Retrieved Item: ',JSON.parse(retrievedItem));
     }
 
-    private handleError(errorRes: HttpErrorResponse) {
-        let errorMessage = 'An unknown error occured!';
-        if(!errorRes.message) {
-            return throwError(errorMessage);
-        }
-        switch(errorRes.message) {
-            case 'WRONG PASSWORD':
-                errorMessage = 'Invalid Password';
-            case 'USER NOT FOUND':
-                errorMessage = 'This user does not exist'
-        }
-        return throwError(errorMessage);
-    }
+    // private handleError(errorRes: HttpErrorResponse) {
+    //     let errorMessage = 'An unknown error occured!';
+    //     if(!errorRes.message) {
+    //         return throwError(errorMessage);
+    //     }
+    //     switch(errorRes.message.toString()) {
+    //         case 'WRONG PASSWORD':
+    //             errorMessage = 'Invalid Password';
+    //         case 'USER NOT FOUND':
+    //             errorMessage = 'This user does not exist'
+    //     }        
+    //     return throwError(errorMessage);
+    // }
 }

@@ -18,8 +18,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class EditEmployeeComponent implements OnInit {
   
-  departments : Department[];
-  designations : Designation[];  
+  departments : Department[] = this.adminService.departments;
+  designations : Designation[] = this.adminService.designations;  
   departmentId: number;
   designationId:number;
   editMode = false;
@@ -70,7 +70,7 @@ export class EditEmployeeComponent implements OnInit {
         designationid: designationId
       }).subscribe(editedEmployee => {
         console.log(editedEmployee);
-        // this.adminService.updateEmployee(username,name,email,mobilephone,departmentId,designationId,editedEmployee._id);
+        this.adminService.updateEmployee(username,name,email,mobilephone,departmentId,designationId,editedEmployee._id);      
       }, error => {
         console.log(error)
       });
@@ -93,8 +93,8 @@ export class EditEmployeeComponent implements OnInit {
         'name': new FormControl(employee.name, Validators.required),
         'email': new FormControl(employee.email, [Validators.required, Validators.email]),
         'phoneNumber': new FormControl(employee.mobilephone, [Validators.required, Validators.pattern('^[0-9]{10}$')]),
-        'department': new FormControl('5f5b9e0720f2b9c05adaeabe'),
-        'designation': new FormControl('5f5baa8e20f2b9c05adaeac5'), 
+        'department': new FormControl(employee.departmentid._id),
+        'designation': new FormControl(employee.designationid._id)
       });
       console.log(employee);
     },

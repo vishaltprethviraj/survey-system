@@ -19,7 +19,8 @@ export class NewEmployeeComponent implements OnInit {
   constructor(private adminService:AdminService,private router:Router,private route:ActivatedRoute,private http:HttpClient) { }
        
   @ViewChild('f',{static:false}) newEmployeeForm: NgForm;
-   
+  departments:Department[] = this.adminService.departments;
+  designations:Designation[] = this.adminService.designations;
   defaultDepartment:string = '5f5b9e0720f2b9c05adaeabe';
   defaultDesignation:string = '5f5baa8e20f2b9c05adaeac5';
 

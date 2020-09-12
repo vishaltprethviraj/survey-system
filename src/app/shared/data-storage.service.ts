@@ -5,6 +5,8 @@ import { AdminService } from '../admin/admin.service';
 import { Department } from '../admin/department/department.model';
 import { Designation } from '../admin/designation/designation.model';
 import { Employee } from '../admin/employee-details/employee.model';
+import { Question } from '../admin/question/question.model';
+import { Survey } from '../admin/survey-list/survey.model';
 
 @Injectable({ providedIn:'root' })
 
@@ -37,6 +39,21 @@ export class DataStorageService {
 
     getEmployee(id:string) {
         return this.http.get<Employee>('http://74.208.150.171:3501/api/v1/userprofile/'+id);
+    }
+
+    //question section
+
+    questionList() {
+        return this.http.get<Question[]>('http://74.208.150.171:3501/api/v1/question');
+    }
+
+    getQuestion(id:string) {
+        return this.http.get<Question>('http://74.208.150.171:3501/api/v1/question/'+id);
+    }
+
+    //survey section
+    surveyList() {
+        return this.http.get<Survey[]>('http://74.208.150.171:3501/api/v1/survey');
     }
 
 }

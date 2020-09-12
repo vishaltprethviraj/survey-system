@@ -27,13 +27,13 @@ export class NewSurveyComponent implements OnInit {
   }
 
   onSubmit() {
-    const newSurvey = new Survey(this.newSurveyForm.value['name'],
-                                 this.newSurveyForm.value['description'],
-                                 this.newSurveyForm.value['thankYouMessage'],
-                                 this.newSurveyForm.value['startDate'],
-                                 this.newSurveyForm.value['endDate']
-                      )    
-    this.adminService.addSurvey(newSurvey);
+    // const newSurvey = new Survey(this.newSurveyForm.value['name'],
+    //                              this.newSurveyForm.value['description'],
+    //                              this.newSurveyForm.value['thankYouMessage'],
+    //                              this.newSurveyForm.value['startDate'],
+    //                              this.newSurveyForm.value['endDate']
+    //                   )    
+    // this.adminService.addSurvey(newSurvey);
     console.log(this.newSurveyForm);
     this.router.navigate(['add-survey-question'],{ relativeTo: this.route })
   }

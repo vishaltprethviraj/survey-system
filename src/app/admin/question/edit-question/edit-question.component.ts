@@ -3,6 +3,8 @@ import { FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute,Params, Router } from '@angular/router';
 import { Question } from '../question.model';
 import { AdminService } from '../../admin.service';
+import { HttpClient } from '@angular/common/http';
+import { DataStorageService } from 'src/app/shared/data-storage.service';
 
 @Component({
   selector: 'app-edit-question',
@@ -11,10 +13,10 @@ import { AdminService } from '../../admin.service';
 })
 export class EditQuestionComponent implements OnInit {
 
-  id: number;
+  id: string;
   editMode = false;
 
-  constructor(private route:ActivatedRoute,private router:Router,private adminService:AdminService) { }
+  constructor(private route:ActivatedRoute,private router:Router,private adminService:AdminService,private http:HttpClient,private dataStorageService:DataStorageService) { }
 
   editQuestionForm: FormGroup;
 
@@ -22,21 +24,32 @@ export class EditQuestionComponent implements OnInit {
     this.route.params
     .subscribe(
       (params: Params) => {
-        this.id = +params['id'];
+        this.id = params['id'];
         this.editMode = params['id'] != null;
         this.initForm();          
       }
     );   
   }
+  options;
+  optionArray:[];
 
   onSubmit() {
-    const newQuestion = new Question(this.editQuestionForm.value['question'],this.editQuestionForm.value['options']);
-    if(this.editMode) {
-      this.adminService.updateQuestion(this.id,newQuestion);
-      // console.log(this.editQuestionForm);
-      // console.log(newQuestion);
-    }
+    const description = this.editQuestionForm.value['question'];
+    this.options = this.editQuestionForm.value['options'];
+    this.optionArray = this.options.map(x => x.options);
+    console.log(this.optionArray);
+    this.http.patch<Question>('http://74.208.150.171:3501/api/v1/question/' + this.id,
+      {
+        description: description,
+        options: this.optionArray
+      }).subscribe(editedQuestion => {
+        console.log(editedQuestion);
+        this.adminService.updateQuestion(this.id,editedQuestion);                             
+      }, error => {
+        console.log(error)
+      });
     this.router.navigate(['/admin/question']);
+
   }
   
   onCancel() {
@@ -59,30 +72,35 @@ export class EditQuestionComponent implements OnInit {
     let questionName = '';
     let questionOptions = new FormArray([]);
 
-    if(this.editMode) {
-      const question = this.adminService.getQuestions(this.id)
-      questionName = question.question;
-      if(question['option']) {
-        for (let option of question.option) {
+    this.editQuestionForm = new FormGroup({
+      'question': new FormControl(questionName, Validators.required),
+      'options': questionOptions
+    });
+
+    this.dataStorageService.getQuestion(this.id).subscribe(question => {
+      questionName = question.description;
+      if (question['options']) {
+        for (let option of question.options) {
           questionOptions.push(
             new FormGroup({
-              'options': new FormControl(option.options,Validators.required)
+              'options': new FormControl(option, Validators.required)
             })
           )
         }
       }
-    }
-    
-    this.editQuestionForm = new FormGroup({
-      'question': new FormControl(questionName,Validators.required),      
-      'options': questionOptions
+
+      this.editQuestionForm = new FormGroup({
+        'question': new FormControl(question.description),
+        'options': questionOptions
       });
-    
+    },
+      errorRes => {
+        console.log(errorRes);
+      });
+             
   }  
 
   get controls() { 
     return (<FormArray>this.editQuestionForm.get('options')).controls;
   }
-
-
 }

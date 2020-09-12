@@ -16,7 +16,12 @@ export class LoginComponent implements OnInit {
 
   //required Logo
   faClipboardList = faClipboardList;
+  
+  //loading check
+  isLoading = false;
 
+  //error
+  error:string;
   //creating a form
   loginForm: FormGroup;  
 
@@ -39,23 +44,37 @@ export class LoginComponent implements OnInit {
     const username = this.loginForm.value['username'];
     const password = this.loginForm.value['password'];
     
+    this.isLoading=true;
+
     this.loginService.login(username,password).subscribe(
       resData => {
         console.log(resData);
         if(resData.role == "admin") {
-          this.router.navigate(['/admin/home']);                         
+          this.router.navigate(['/admin/home']);
+          this.isLoading = false;                         
         }
-        else {
+        else if(resData.role == "employee") {
           this.router.navigate(['/employee/home']);
-        }
+          this.isLoading = false;
+        }  
+        else if(resData.message == "wrong password") {
+          this.isLoading =false;
+          console.log(resData.message);
+          this.error = 'The password entered is incorrect';
+        }     
+        else if(resData.messgae == "user not found") {
+          this.isLoading =false;
+          console.log(resData.messgae);
+          this.error = "This user does not exist";
+        }     
         
-      },
-      errorMessage => {
-        console.log(errorMessage);
-        
-      }
+      }      
     );
     this.loginForm.reset();
+  }
+
+  onHandleError() {
+    this.error = null;
   }
   
 

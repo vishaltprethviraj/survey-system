@@ -3,16 +3,21 @@ import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { FooterComponent } from './footer/footer.component';
-
+import { LoadingSpinnerComponent} from './loading-spinner/loading-spinner.component';
+import { AlertComponent } from './alert/alert.component';
 @NgModule({
     declarations:[        
-        FooterComponent,  
+        FooterComponent, 
+        LoadingSpinnerComponent,
+        AlertComponent 
     ],
 
     imports: [ CommonModule,FontAwesomeModule ],
 
     exports: [
-        FooterComponent,  
+        FooterComponent, 
+        LoadingSpinnerComponent, 
+        AlertComponent,
         CommonModule,
         FontAwesomeModule
     ]
