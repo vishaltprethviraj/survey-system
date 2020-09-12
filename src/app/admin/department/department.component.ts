@@ -28,14 +28,7 @@ export class DepartmentComponent implements OnInit {
 
   departments: Department[];
   
-  ngOnInit(): void {   
-      this.dataStorageService.departmentList().subscribe(departments => {                  
-      this.adminService.setDepartment(departments);               
-    },              
-      errorRes => {
-        console.log(errorRes);
-      }      
-     );   
+  ngOnInit(): void {     
      this.adminService.departmentChanged
     .subscribe(
       (departments: Department[]) => {

@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AdminService } from '../admin/admin.service';
 import { Department } from '../admin/department/department.model';
 import { Designation } from '../admin/designation/designation.model';
+import { Employee } from '../admin/employee-details/employee.model';
 
 @Injectable({ providedIn:'root' })
 
@@ -26,6 +27,16 @@ export class DataStorageService {
     }
     getDesignation(id:string) {
         return this.http.get<Designation>('http://74.208.150.171:3501/api/v1/designation/'+id);
+    }
+
+    //employee section
+
+    employeeList() {
+        return this.http.get<Employee[]>('http://74.208.150.171:3501/api/v1/userprofile');
+    }
+
+    getEmployee(id:string) {
+        return this.http.get<Employee>('http://74.208.150.171:3501/api/v1/userprofile/'+id);
     }
 
 }

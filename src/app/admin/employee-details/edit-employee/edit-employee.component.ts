@@ -8,6 +8,8 @@ import { Designation } from '../../designation/designation.model';
 import { Employee } from '../../employee-details/employee.model';
 import { Params } from '@fortawesome/fontawesome-svg-core';
 import { Subscription } from 'rxjs';
+import { DataStorageService } from 'src/app/shared/data-storage.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-edit-employee',
@@ -21,41 +23,57 @@ export class EditEmployeeComponent implements OnInit {
   departmentId: number;
   designationId:number;
   editMode = false;
-  id:number;  
+  id:string;  
     
   editEmployeeForm: FormGroup
   subscription: Subscription;
 
-  constructor(private adminService:AdminService,private router:Router,private route:ActivatedRoute) { }
+  constructor(private adminService:AdminService,private router:Router,private route:ActivatedRoute,private dataStorageService:DataStorageService,private http:HttpClient) { }
 
   ngOnInit(): void {       
+    this.editEmployeeForm = new FormGroup({
+      'username': new FormControl(null),
+      'name': new FormControl(null),
+      'email': new FormControl(null),
+      'phoneNumber': new FormControl(null),
+      'department': new FormControl('5f5b9e0720f2b9c05adaeabe'),
+      'designation': new FormControl('5f5baa8e20f2b9c05adaeac5'), 
+    });
+    
     this.subscription = this.route.params
       .subscribe(
         (params: Params) => {
-          this.id = +params['id'];
+          this.id = params['id'];
           this.editMode = params['id'] != null;
           this.initForm();               
         }
-      );          
-    
-    this.departments = this.adminService.getDepartment();
-    this.designations = this.adminService.getDesignation(); 
+      );      
+      
+     
   }
   onSubmit() {    
-    this.departmentId = this.editEmployeeForm.value['department'];
-    this.designationId = this.editEmployeeForm.value['designation'];    
-    const newEmployee = new Employee('5',
-                                    this.editEmployeeForm.value['username'],
-                                    '1234',
-                                    this.editEmployeeForm.value['name'],                                  
-                                    this.editEmployeeForm.value['email'],
-                                    this.editEmployeeForm.value['phoneNumber'],                                                                      
-                                    this.adminService.getDepartments(this.departmentId),
-                                    this.adminService.getDesignations(this.designationId),
-                                    { _id:'2',rolename:'employee'});
-    this.adminService.updateEmployee(this.id,newEmployee);
-    // console.log(this.newEmployeeForm);
-    // console.log(newEmployee);    
+    const username = this.editEmployeeForm.value['username'];
+    const name = this.editEmployeeForm.value['name'];
+    const email = this.editEmployeeForm.value['email'];
+    const mobilephone = this.editEmployeeForm.value['phoneNumber'];
+    const departmentId = this.editEmployeeForm.value['department'];
+    const designationId = this.editEmployeeForm.value['designation'];
+    console.log(departmentId);
+    console.log(this.id);
+    this.http.patch<Employee>('http://74.208.150.171:3501/api/v1/userprofile/' + this.id,
+      {
+        username: username,
+        name: name,
+        email: email,
+        mobilephone: mobilephone,
+        departmentid: departmentId,
+        designationid: designationId
+      }).subscribe(editedEmployee => {
+        console.log(editedEmployee);
+        // this.adminService.updateEmployee(username,name,email,mobilephone,departmentId,designationId,editedEmployee._id);
+      }, error => {
+        console.log(error)
+      });
     this.onCancel();
   }
 
@@ -68,29 +86,21 @@ export class EditEmployeeComponent implements OnInit {
     this.subscription.unsubscribe();
   }
 
-  private initForm() {
-    let username = '';
-    let name = '';
-    let email = '';
-    let phoneNumber = '';
-    let department = '';
-    let designation = '';
-    if(this.editMode) {
-      const employee = this.adminService.getEmployees(this.id);
-        username = employee.username;
-        name = employee.name;
-        email = employee.email;
-        phoneNumber = employee.mobilephone;
-        department = '0';
-        designation = '1';
-    }
-    this.editEmployeeForm = new FormGroup({
-      'username': new FormControl(username,Validators.required),
-      'name': new FormControl(name,Validators.required),
-      'email': new FormControl(email,[Validators.required,Validators.email]),
-      'phoneNumber': new FormControl(phoneNumber,[Validators.required,Validators.pattern('^[0-9]{10}$')]),
-      'department': new FormControl('0'),
-      'designation': new FormControl('1'),
-    });
+  private initForm() {    
+    this.dataStorageService.getEmployee(this.id).subscribe(employee => {
+      this.editEmployeeForm = new FormGroup({
+        'username': new FormControl(employee.username, Validators.required),
+        'name': new FormControl(employee.name, Validators.required),
+        'email': new FormControl(employee.email, [Validators.required, Validators.email]),
+        'phoneNumber': new FormControl(employee.mobilephone, [Validators.required, Validators.pattern('^[0-9]{10}$')]),
+        'department': new FormControl('5f5b9e0720f2b9c05adaeabe'),
+        'designation': new FormControl('5f5baa8e20f2b9c05adaeac5'), 
+      });
+      console.log(employee);
+    },
+      errorRes => {
+        console.log(errorRes);
+      });
+
   }
 }

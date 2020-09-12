@@ -40,13 +40,13 @@
             <div class="col-xl-4">
                 <label for="department">Department</label>
                 <select class="form-control" formControlName="department">
-                        <option value="{{ department.id }}" *ngFor="let department of departments; let i = index">{{department.departmentName}}</option>                       
+                        <option [value]="department._id" *ngFor="let department of this.adminService.departments; let i = index">{{department.name}}</option>                       
                 </select>
             </div>
             <div class="col-xl-4">
                 <label for="designation">Designation</label>
                 <select class="form-control" formControlName="designation">
-                    <option value="{{i}}" *ngFor="let designation of designations; let i =index">{{ designation.designationName }}</option>                    
+                    <option [value]="designation._id" *ngFor="let designation of this.adminService.designations; let i =index">{{ designation.name }}</option>                    
                 </select>
             </div>
             <div class="row">

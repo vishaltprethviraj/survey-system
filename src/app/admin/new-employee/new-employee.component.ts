@@ -7,6 +7,7 @@ import { AdminService } from '../admin.service';
 import { Designation } from '../designation/designation.model';
 
 import { Employee } from '../employee-details/employee.model';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-new-employee',
@@ -15,44 +16,43 @@ import { Employee } from '../employee-details/employee.model';
 })
 export class NewEmployeeComponent implements OnInit {
 
-  constructor(private adminService:AdminService,private router:Router,private route:ActivatedRoute) { }
-  
-  departments : Department[];
-  designations : Designation[]; 
-  
-  departmentId: number;
-  designationId: number;
-
+  constructor(private adminService:AdminService,private router:Router,private route:ActivatedRoute,private http:HttpClient) { }
+       
   @ViewChild('f',{static:false}) newEmployeeForm: NgForm;
    
-  defaultDepartment = '0' ;
-  defaultDesignation = '0'; 
+  defaultDepartment:string = '5f5b9e0720f2b9c05adaeabe';
+  defaultDesignation:string = '5f5baa8e20f2b9c05adaeac5';
 
   ngOnInit(): void {  
-    this.departments = this.adminService.getDepartment();
-    this.designations = this.adminService.getDesignation();           
+            
   }  
   
   onSubmit() {    
-    this.departmentId = this.newEmployeeForm.value['department'];
-    this.designationId = this.newEmployeeForm.value['designation'];    
-    const newEmployee = new Employee('1',
-                                    this.newEmployeeForm.value['username'],
-                                    '1234',
-                                    this.newEmployeeForm.value['name'],
-                                    this.newEmployeeForm.value['email'],
-                                    this.newEmployeeForm.value['phoneNumber'],                                                                      
-                                    this.adminService.getDepartments(this.departmentId),
-                                    this.adminService.getDesignations(this.designationId),
-                                    {_id:'1',rolename:'employee'});
-    this.adminService.addEmployee(newEmployee);
-    // console.log(this.newEmployeeForm);
-    // console.log(newEmployee);
+    const username = this.newEmployeeForm.value['username'];
+    const name = this.newEmployeeForm.value['name'];
+    const email = this.newEmployeeForm.value['email'];
+    const mobilephone = this.newEmployeeForm.value['phoneNumber'];
+    const departmentId = this.newEmployeeForm.value['department'];
+    const designationId = this.newEmployeeForm.value['designation'];
+    console.log(departmentId);
+    console.log(designationId);   
+    this.http.post<Employee>('http://74.208.150.171:3501/api/v1/userprofile',
+    {
+      username: username,
+      name:name,
+      email:email,
+      mobilephone:mobilephone,
+      departmentid:departmentId,
+      designationid:designationId
+    }).subscribe(newEmployee => {
+        // this.adminService.addEmployee(newEmployee);
+        console.log(newEmployee);
+    });    
     this.onCancel();
   }
 
   onCancel() {
-    this.router.navigate(['/admin/employee-details']);
+    this.router.navigate(['/admin/employee-details']);            
     window.scroll(0,0);
   }
 }

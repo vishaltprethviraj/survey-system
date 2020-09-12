@@ -44,7 +44,8 @@ export class LoginService {
         this.user.next(null);
         this.router.navigate(['/login']); 
         localStorage.removeItem('userData');
-        localStorage.removeItem('departmentData');       
+        localStorage.removeItem('departmentData');
+        localStorage.removeItem('designationData');       
     }
 
     private handleAuthentication(message:string,accesstoken:string,refreshtoken:string,roleid:string,username:string,email:string,expiresIn:number,_id:string) {

@@ -56,15 +56,7 @@ export class AdminService {
     setDesignation(designation:Designation[]) {
       this.designations = designation;
       this.designationChanged.next(this.designations.slice());
-    }
-    
-    getDesignation() {
-      return this.designations.slice();
-    }
-
-    getDesignations(index:number) {
-      return this.designations[index];
-    }
+    }        
 
     addDesignation(newDesignation:Designation) {
       this.designations.push(newDesignation);
@@ -90,32 +82,36 @@ export class AdminService {
     
     //employee section
 
-    employeeChanged = new Subject<Employee[]>();
-    startEditing = new Subject<number>();    
-    employees: Employee[] =[
-        new Employee('1','raju@1234','1234','Rajesh','raju@gmail.com','9895476309',this.departments[0],this.designations[2],{_id:'1',rolename:'admin'}),
-        new Employee('2','sanju_2310','hdsh','Sanjay','sanju@gmail.com','8089367521',this.departments[2],this.designations[6],{_id:'2',rolename:'employee'})
-      ];
+    employeeChanged = new Subject<Employee[]>();    
+    employees: Employee[] = []
 
-    getEmployee() {
-        return this.employees.slice();
+    setEmployee(employee:Employee[]) {
+      this.employees = employee;
+      this.employeeChanged.next(this.employees.slice());
     }
-
-    getEmployees(index:number) {
-      return this.employees[index];
-    }
-
+    
     addEmployee(employee:Employee) {
       this.employees.push(employee);      
       this.employeeChanged.next(this.employees.slice());
     }
-
-    updateEmployee(index:number,newEmployee:Employee) {
-      this.employees[index] = newEmployee;
+    
+    selectedEmployee:Employee[]
+    
+    updateEmployee(username:string,name:string,email:string,mobilephone:string,departmentId:string,designationId:string,id:string) {
+      this.selectedEmployee = this.employees.filter(employee => employee._id == id);
+      let index = this.employees.indexOf(this.selectedEmployee[0]);
+      this.employees[index].username = username;
+      this.employees[index].name = name;
+      this.employees[index].email = email;
+      this.employees[index].mobilephone = mobilephone;
+      this.employees[index].departmentid = this.departments
+      this.employees[index].designationid = this.designations;
       this.employeeChanged.next(this.employees.slice());
     }
 
-    deleteEmployee(index:number) {
+    deleteEmployee(id:string) {
+      this.selectedEmployee = this.employees.filter(employee => employee._id == id);
+      let index = this.employees.indexOf(this.selectedEmployee[0]);                  
       this.employees.splice(index,1);
       this.employeeChanged.next(this.employees.slice());
     }

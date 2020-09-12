@@ -4,8 +4,9 @@ import { faPencilAlt,faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Employee } from './employee.model';
 import { AdminService } from '../admin.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Params } from '@fortawesome/fontawesome-svg-core';
-
+import { DataStorageService } from 'src/app/shared/data-storage.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-employee-details',
   templateUrl: './employee-details.component.html',
@@ -19,11 +20,16 @@ export class EmployeeDetailsComponent implements OnInit {
   
   employees: Employee[];
 
-  id:number;
+  id:string;
 
-  constructor(private adminService: AdminService,private router:Router,private route:ActivatedRoute) { }
+  constructor(private adminService: AdminService,private router:Router,private route:ActivatedRoute,private dataStorageService:DataStorageService,private modalService:NgbModal,private http:HttpClient) { }
 
   ngOnInit(): void {
+    this.dataStorageService.employeeList().subscribe(employees => {
+      this.adminService.setEmployee(employees);
+      console.log(employees);
+      console.log(this.adminService.employees);
+    });
 
     this.adminService.employeeChanged
     .subscribe(
@@ -31,20 +37,32 @@ export class EmployeeDetailsComponent implements OnInit {
         this.employees = employees;
       }
     );
-
-    this.employees = this.adminService.getEmployee();
+    
   }
 
   onAddEmployee() {
     this.router.navigate(['/admin/new-employee']);
   }
 
-  onDeleteEmployee(i) {
-    this.adminService.deleteEmployee(i);        
-  }
+  openModal(targetModal, employee) {
+    this.modalService.open(targetModal, {
+     centered: true,
+     backdrop: 'static'
+    });
+   this.id = employee._id; 
+   console.log(this.id);   
+   }
 
-  onEditEmployee(index:number) {
-    this.adminService.startEditing.next(index);
-    this.router.navigate([index,'edit'],{ relativeTo: this.route});    
-  }
+   onDeleteEmployee() {
+    console.log(this.id);    
+    this.http.delete('http://74.208.150.171:3501/api/v1/userprofile/'+ this.id).subscribe(res => {
+    console.log(res);
+    this.adminService.deleteEmployee(this.id);    
+  },
+  error => {
+    console.log(error);
+  }); 
+  this.modalService.dismissAll();       
+   }
+   
 }

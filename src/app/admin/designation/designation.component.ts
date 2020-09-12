@@ -24,10 +24,7 @@ export class DesignationComponent implements OnInit {
   constructor(private adminService: AdminService,private router:Router,private route:ActivatedRoute,private dataStorageService:DataStorageService,private modalService:NgbModal,private http:HttpClient) { }
 
   ngOnInit(): void {
-    
-    this.dataStorageService.designationList().subscribe(designation => {
-      this.adminService.setDesignation(designation);
-    })
+        
     this.adminService.designationChanged
       .subscribe(
         (designation: Designation[]) => {
