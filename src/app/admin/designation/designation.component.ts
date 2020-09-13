@@ -21,10 +21,10 @@ export class DesignationComponent implements OnInit {
   id:string;
   designations: Designation[] = this.adminService.designations;
 
-  constructor(public adminService: AdminService,private router:Router,private route:ActivatedRoute,private dataStorageService:DataStorageService,private modalService:NgbModal,private http:HttpClient) { }
+  constructor(private adminService: AdminService,private router:Router,private route:ActivatedRoute,private dataStorageService:DataStorageService,private modalService:NgbModal,private http:HttpClient) { }
 
   ngOnInit(): void {
-        
+      
     this.adminService.designationChanged
       .subscribe(
         (designation: Designation[]) => {
@@ -60,8 +60,7 @@ export class DesignationComponent implements OnInit {
    }
 
   scrollDown(){
-    var scrollingElement = (document.scrollingElement || document.body);
-    scrollingElement.scrollTop = scrollingElement.scrollHeight;
+    scrollTo(50,250);
   }
 
 }

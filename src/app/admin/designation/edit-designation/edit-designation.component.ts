@@ -21,6 +21,7 @@ export class EditDesignationComponent implements OnInit {
   constructor(private router:Router,private route:ActivatedRoute,private adminService:AdminService,private dataStorageService:DataStorageService,private http:HttpClient) { }
 
   ngOnInit(): void {
+    
     this.route.params
       .subscribe(
         (params: Params) => {
@@ -42,8 +43,7 @@ export class EditDesignationComponent implements OnInit {
                      this.adminService.updateDesignation(designationName,editedDesignation._id);                             
               },error=> {
                 console.log(error)
-           });     
-    window.scroll(0,0); 
+           });         
     this.onCancel();
   }
 

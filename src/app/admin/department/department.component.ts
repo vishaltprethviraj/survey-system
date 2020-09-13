@@ -24,7 +24,7 @@ export class DepartmentComponent implements OnInit {
   
   @ViewChild('f',{static:false}) newEmployeeForm: NgForm;
 
-  constructor(public adminService:AdminService,private router:Router,private route:ActivatedRoute,private dataStorageService:DataStorageService,private http:HttpClient,private modalService:NgbModal) { }
+  constructor(private adminService:AdminService,private router:Router,private route:ActivatedRoute,private dataStorageService:DataStorageService,private http:HttpClient,private modalService:NgbModal) { }
 
   departments: Department[] = this.adminService.departments;
   
@@ -43,9 +43,8 @@ export class DepartmentComponent implements OnInit {
   }
  
   
-  scrollDown() {
-    var scrollingElement = (document.scrollingElement || document.body);
-    scrollingElement.scrollTop = scrollingElement.scrollHeight;
+  scrollDown() {    
+    scrollTo(50,100);
   }
   
   openModal(targetModal, department) {

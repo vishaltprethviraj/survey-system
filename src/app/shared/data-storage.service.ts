@@ -7,6 +7,7 @@ import { Designation } from '../admin/designation/designation.model';
 import { Employee } from '../admin/employee-details/employee.model';
 import { Question } from '../admin/question/question.model';
 import { Survey } from '../admin/survey-list/survey.model';
+import { SurveyQuestion } from '../admin/new-survey/survey-question.model';
 
 @Injectable({ providedIn:'root' })
 
@@ -56,4 +57,17 @@ export class DataStorageService {
         return this.http.get<Survey[]>('http://74.208.150.171:3501/api/v1/survey');
     }
 
+    getSurvey(id:string) {
+        return this.http.get<Survey>('http://74.208.150.171:3501/api/v1/survey/'+id);
+    }
+
+    //survey question section    
+    surveyQuestionList() {
+        return this.http.get<SurveyQuestion[]>('http://74.208.150.171:3501/api/v1/surveyquestion');
+    }
+
+    getSurveyQuestions(id:string) {
+        return this.http.get<SurveyQuestion[]>('http://74.208.150.171:3501/api/v1/surveyquestion/'+id);
+    }    
+    
 }

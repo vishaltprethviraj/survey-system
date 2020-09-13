@@ -8,6 +8,7 @@ import { AuditLog } from './audit-log/audit-log.model';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { ConstantPool } from '@angular/compiler';
+import { SurveyQuestion } from './new-survey/survey-question.model';
 
 @Injectable( { providedIn:'root' }) 
 
@@ -70,7 +71,7 @@ export class AdminService {
       let index = this.designations.indexOf(this.selectedDesignation[0]);
       this.designations[index].name = designationName;
       this.designations[index]._id = id;
-      this.designationChanged.next(this.departments.slice());
+      this.designationChanged.next(this.designations.slice());
     }
 
     deleteDesignation(id:string) {
@@ -170,19 +171,36 @@ export class AdminService {
     setSurvey(survey:Survey[]) {
       this.surveys = survey;
       this.surveyChanged.next(this.surveys.slice());
-    }
-      
-    getSurvey() {
-      return this.surveys.slice();
-    }
-
-    getSurveys(index:number) {
-      return this.surveys[index];
-    }
+    }          
 
     addSurvey(survey:Survey) {
       this.surveys.push(survey);
       this.surveyChanged.next(this.surveys.slice());
+    }
+    selectedSurvey: Survey[];
+    
+    updateSurvey(id:string,newSurvey:Survey) {
+      this.selectedSurvey = this.surveys.filter(surveys => surveys._id == id);
+      let index = this.surveys.indexOf(this.selectedSurvey[0]); 
+      this.surveys[index] = newSurvey;
+      this.surveyChanged.next(this.surveys.slice());
+    }
+
+    deleteSurvey(id:string) {
+      this.selectedSurvey = this.surveys.filter(surveys => surveys._id == id);
+      let index = this.surveys.indexOf(this.selectedSurvey[0]);                        
+      this.surveys.splice(index,1),
+      this.surveyChanged.next(this.surveys.slice());
+    }
+
+    //survey question
+    surveyQuestionChanged = new Subject<SurveyQuestion[]>();
+
+    surveyQuestions: SurveyQuestion[] = [];
+
+    setSurveyQuestion(newSurveyQuestion:SurveyQuestion[]) {
+      this.surveyQuestions = newSurveyQuestion;
+      this.surveyQuestionChanged.next(this.surveyQuestions.slice());
     }
 
 }

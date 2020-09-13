@@ -13,66 +13,66 @@ import { Department } from '../department.model';
 })
 
 export class EditDepartmentComponent implements OnInit {
-    
+
   id: string;
   editMode = false;
- 
-  constructor(private route:ActivatedRoute,private adminService:AdminService,private router:Router,private dataStorageService:DataStorageService,private http:HttpClient) { }
+
+  constructor(private route: ActivatedRoute, private adminService: AdminService, private router: Router, private dataStorageService: DataStorageService, private http: HttpClient) { }
 
   editDepartmentForm: FormGroup;
-  departmentName:string =''
+  departmentName: string = ''
   departments: Department;
 
-  ngOnInit(): void {     
+  ngOnInit(): void {
     this.editDepartmentForm = new FormGroup({
-      'departmentName': new FormControl(null) 
-     });
+      'departmentName': new FormControl(null)
+    });
 
     this.route.params
       .subscribe(
         (params: Params) => {
           this.id = params['id'];
           this.editMode = params['id'] != null;
-          this.initForm();               
+          this.initForm();
         }
-      );    
-        
-  } 
+      );
 
-  onSubmit() {    
-    this.editDepartment();
-    this.onCancel();   
-        
   }
-  
+
+  onSubmit() {
+    this.editDepartment();
+    this.onCancel();
+
+  }
+
   editDepartment() {
-    const departmentName = this.editDepartmentForm.value['departmentName'];    
-    this.http.patch<Department>('http://74.208.150.171:3501/api/v1/department/'+ this.id,
-          { 
-            name: departmentName
-          }) .subscribe(editedDepartment => {
-      console.log(editedDepartment);  
-      this.adminService.updateDepartment(departmentName,editedDepartment._id);                             
-    },error=> {
-      console.log(error)
-    });       
+    const departmentName = this.editDepartmentForm.value['departmentName'];
+    this.http.patch<Department>('http://74.208.150.171:3501/api/v1/department/' + this.id,
+      {
+        name: departmentName
+      }).subscribe(editedDepartment => {
+        console.log(editedDepartment);
+        this.adminService.updateDepartment(departmentName, editedDepartment._id);
+      }, error => {
+        console.log(error)
+      });
   }
   onCancel() {
     this.router.navigate(['/admin/department']);
   }
-  
-  
+
+
   private initForm() {
-           
-      this.dataStorageService.getDepartment(this.id).subscribe(department => {                  
-        this.editDepartmentForm = new FormGroup({
-          'departmentName': new FormControl(department.name) ,          
-        });                   
-      },
+
+    this.dataStorageService.getDepartment(this.id).subscribe(department => {
+      this.editDepartmentForm = new FormGroup({
+        'departmentName': new FormControl(department.name),
+      });
+    },
       errorRes => {
         console.log(errorRes);
-      } );         
-  
-}
+      });
+
+  }
 
 }

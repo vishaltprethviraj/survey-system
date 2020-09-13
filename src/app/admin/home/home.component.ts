@@ -30,7 +30,14 @@ export class HomeComponent implements OnInit,OnDestroy {
     this.dataStorageService.designationList().subscribe(designation => {
       localStorage.setItem('designationData',JSON.stringify(designation));
       this.adminService.setDesignation(designation);
-    })
+    });
+
+    //question intitialization
+    this.dataStorageService.questionList().subscribe(questions =>{
+      this.adminService.setQuestion(questions);
+      // console.log(questions);
+    });       
+
     this.userSub = this.loginService.user.subscribe(user => {
       this.isAuthenticated = !user ? false : true;        //!!user can also be used           
     });

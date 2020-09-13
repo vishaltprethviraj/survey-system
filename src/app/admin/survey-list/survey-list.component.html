@@ -15,6 +15,8 @@
                         <th>Start Date</th>
                         <th>End Date</th>
                         <th>Thank You Message</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
                         <!-- <th>Status</th> -->
                     </tr>
                 </thead>
@@ -22,12 +24,41 @@
                     <tr *ngFor="let survey of surveys; let i = index">
                         <td>{{ i+ 1}}</td>
                         <td>
-                            <a style="color: rgb(94, 41, 238);margin-left: 0rem;cursor: pointer;" [routerLink]="[i,'detail']">{{survey.name}}</a>
+                            <a style="color: rgb(94, 41, 238);margin-left: 0rem;cursor: pointer;" [routerLink]="[survey._id,'detail']">{{survey.name}}</a>
                         </td>
                         <td>{{ survey.description }} </td>
-                        <td>{{ survey.startDate }}</td>
-                        <td>{{ survey.endDate }}</td>
-                        <td>{{ survey.thankYouMessage }}</td>
+                        <td>{{ this.datePipe.transform(survey.start_date,'yyyy-MMM-dd') }}</td>
+                        <td>{{ this.datePipe.transform(survey.end_date,'yyyy-MMM-dd') }}</td>
+                        <td>{{ survey.thank_you_message }}</td>
+                        <td>
+                            <a style="cursor:pointer" [routerLink]="[survey._id,'edit']">
+                                <fa-icon [icon]="faPencilAlt" style="color:#486dda;"></fa-icon>
+                            </a>
+
+                        </td>
+                        <td>
+                            <a style="cursor:pointer" (click)="openModal(deleteModal, survey)">
+                                <fa-icon [icon]="faTrash" style="color:#486dda;"></fa-icon>
+                            </a>
+                            <ng-template #deleteModal let-modal>
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="deleteSurveyLabel">Delete</h5>
+                                    <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                 </button>
+                                </div>
+
+                                <div class="modal-body">
+                                    <form (ngSubmit)="onDeleteDepartment()" #f="ngForm">
+                                        Are you sure you want to delete this?
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">No</button>
+                                            <button type="submit" class="btn btn-primary">Yes</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </ng-template>
+                        </td>
                     </tr>
                 </tbody>
             </table>

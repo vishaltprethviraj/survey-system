@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Question } from '../question/question.model';
 
 export class Survey { 
@@ -8,6 +9,7 @@ export class Survey {
     public start_date: Date;
     public end_date: Date;      
     
+    
     constructor(_id:string,name:string,description:string,
                 thankYouMessage:string,startDate:Date,endDate:Date
             ) {                
@@ -16,6 +18,6 @@ export class Survey {
                 this.description = description;
                 this.thank_you_message = thankYouMessage;
                 this.start_date = startDate;
-                this.end_date = endDate;                
+                this.end_date = endDate                
              }
 }

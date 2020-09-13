@@ -3,7 +3,7 @@
     <!-- Page Heading -->
     <h1 style="color:gray;">Create Survey - Step 1</h1>
     <br>
-    <form [formGroup]="newSurveyForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="editSurveyForm" (ngSubmit)="onSubmit()">
         <div class="row">
             <div class="col-xl-6">
                 <label for="surveyName">Name</label>
@@ -11,7 +11,7 @@
             </div>
             <div class="col-xl-6">
                 <label for="startDate">Start Date</label>
-                <input type="date" min="{{minDate}}" (change)="onChange()" class="form-control" id="startDate" formControlName="startDate">
+                <input type="date" class="form-control" min="{{minDate}}" (change)="onChange()" id="startDate" formControlName="startDate">
             </div>
         </div>
         <br>
@@ -22,7 +22,7 @@
             </div>
             <div class="col-xl-6">
                 <label for="endDate">End Date</label>
-                <input type="date" min="{{minDate}}" class="form-control" id="endDate" formControlName="endDate">
+                <input type="date" class="form-control" min="{{minDate}}" id="endDate" formControlName="endDate">
             </div>
         </div>
         <br>
@@ -40,8 +40,9 @@
         <br>
         <div class="row">
             &nbsp;&nbsp;
-            <button type="submit" class="btn btn-primary">Next</button> &nbsp;&nbsp;
-            <!-- [disabled]="!newSurveyForm.valid" -->
+            <button type="submit" class="btn btn-primary" [disabled]="!editSurveyForm.valid">Save</button> &nbsp;&nbsp;
+            <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
+
         </div>
     </form>
     <!-- Content Row -->

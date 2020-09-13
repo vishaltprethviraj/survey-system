@@ -22,6 +22,7 @@ import { EditEmployeeComponent } from './employee-details/edit-employee/edit-emp
 import { SurveyDetailComponent } from './survey-list/survey-detail/survey-detail.component';
 import { AddSurveyQuestionComponent } from './new-survey/add-survey-question/add-survey-question.component';
 import { AuthGuard } from '../login/auth.guard';
+import { EditSurveyComponent } from './survey-list/edit-survey/edit-survey.component';
 
 const routes: Routes = [
     { path: 'admin' , 
@@ -52,12 +53,13 @@ const routes: Routes = [
          ] },
          { path: 'survey-list', children:[
             { path:'' ,component: SurveyListComponent },
-            { path:':id/detail',component:SurveyDetailComponent}
+            { path:':id/detail',component:SurveyDetailComponent},
+            { path:':id/edit',component:EditSurveyComponent}
          ] 
           },
          { path: 'new-survey', children:[
             { path:'' ,component: NewSurveyComponent },
-            { path:'add-survey-question',component:AddSurveyQuestionComponent}
+            { path:':id/add-survey-question',component:AddSurveyQuestionComponent},
          ] },
          { path: 'new-employee', component: NewEmployeeComponent},
          { path: 'report', component: ReportComponent }

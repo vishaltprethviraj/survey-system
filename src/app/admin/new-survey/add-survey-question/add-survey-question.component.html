@@ -1,40 +1,32 @@
-<!-- <div class="container-fluid"> -->
+<div class="container-fluid">
 
-<!-- Page Heading -->
-<!-- <h1 style="color:gray;">Create Survey - Step 2</h1>
+    <!-- Page Heading -->
+    <h1 style="color:gray;">Create Survey - Step 2</h1>
     <h6>Click the add button to add questions</h6>
-    <br> -->
+    <br>
 
-<!-- <div class="row">
+    <div class="row">
         <div class="col-xl-10">
-            <form [formGroup]="addSurveyQuestionForm">
+            <form [formGroup]="addSurveyQuestionForm" (ngSubmit)="onAddQuestion()">
                 <div class="row">
                     <div class="col-xl-4">
-                        <button type="button" class="btn btn-primary" (click)="onAddQuestion()">Add Question</button>
+                        <button type="submit" class="btn btn-primary">Add Question</button>
                     </div>
                 </div>
                 <br>
                 <br>
                 <div class="row">
-                    <div class="col-xl-12" formArrayName="surveyQuestion">
-                        <div class="row" style="margin-top: 10px;" *ngFor="let optionCtrl of controls; let i=index" [formGroupName]="i">
-                            <div class="col-xl-6">
-                                Question
-                                <select formControlName="surveyQuestion" class="form-control" (change)="getOption($event.target.value);" onfocus="this.selectedIndex = -1;">
-                                <option value="{{i}}" *ngFor="let question of questions;let i=index">{{ question.question }}</option>                    
-                                </select>
-                            </div>
-                            <div class="col-xl-4">
-                                Options:
-                                <li *ngFor="let option of options;">
-                                    {{ option.options }}
-                                </li>
-                            </div>
-                            <div class=" col-xl-1 ">
-                                <br>
-                                <button type="button " class="btn btn-danger " (click)="onDeleteQuestion()">X</button>
-                            </div>
-                        </div>
+                    <div class="col-xl-6">
+                        Question
+                        <select formControlName="surveyQuestion" class="form-control" (change)="getOption($event.target.value);">                                
+                            <option [value]="question._id" *ngFor="let question of questions;let i=index">{{ question.description }}</option>                    
+                        </select>
+                    </div>
+                    <div class="col-xl-4">
+                        Options:
+                        <li *ngFor="let option of options;">
+                            {{ option }}
+                        </li>
                     </div>
                 </div>
                 <div class="row">
@@ -42,15 +34,43 @@
                 </div>
                 <br>
                 <br>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Sl.No</th>
+                                    <th>Question</th>
+                                    <th>Options</th>
+                                    <!-- <th>Edit</th>
+                                    <th>Delete</th> -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let surveyQuestion of surveyQuestions;let i = index">
+                                    <td> {{ i+1 }}</td>
+                                    <td>
+                                        1
+                                    </td>
+                                    <td>
+                                        <ol>
+                                            2
+                                        </ol>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
                 <div class="row ">
                     <div class="col-xl-4 ">
-                        <button type="submit " class="btn btn-success ">Submit</button> &nbsp;&nbsp;
-                        <button type="button " class="btn btn-danger ">Cancel</button>
+                        <button type="button " class="btn btn-success " routerLink="/admin/survey-list" [disabled]="!isAdded">Submit</button> &nbsp;&nbsp;
+                        <button type="button " class="btn btn-danger " routerLink="/admin/home">Cancel</button>
                     </div>
                 </div>
             </form>
-        </div>
-    </div> -->
-<!-- Content Row -->
+            <!-- Content Row -->
 
-<!-- </div> -->
+        </div>
+    </div>
+</div>
