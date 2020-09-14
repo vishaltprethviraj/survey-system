@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../../admin.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Question } from '../../question/question.model';
+import { SurveyQuestion } from '../../new-survey/survey-question.model';
+import { DataStorageService } from 'src/app/shared/data-storage.service';
 
 @Component({
   selector: 'app-survey-detail',
@@ -10,25 +12,23 @@ import { Question } from '../../question/question.model';
 })
 export class SurveyDetailComponent implements OnInit {
 
-  id:number;
+  id:string;
   name:string;
-  questions: Question[];
-  constructor(private adminService:AdminService,private route:ActivatedRoute) { }
+  surveyQuestions:SurveyQuestion[];
+  constructor(private adminService:AdminService,private route:ActivatedRoute,private dataStorageService:DataStorageService) { }
 
   ngOnInit(): void {
     this.route.params
     .subscribe(
       (params: Params) => {
-        this.id = +params['id'];        
-        this.initForm();               
+        this.id = params['id'];                               
       }
     ); 
+    
+    this.dataStorageService.getSurveyQuestions(this.id).subscribe(surveyQuestions=> {
+      this.surveyQuestions = surveyQuestions;
+    });
   }
-
-  private initForm() {    
-    let question = [];
-    // const survey = this.adminService.getSurveys(this.id);
-    // this.name = survey.name;             
-  }
+  
 
 }

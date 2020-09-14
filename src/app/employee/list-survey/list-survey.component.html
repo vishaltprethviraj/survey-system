@@ -2,7 +2,7 @@
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">List of Pending Surveys</h1>
+        <h1 class="h3 mb-0 text-gray-800">List of Surveys</h1>
     </div>
 
     <!-- Content Row -->
@@ -19,34 +19,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Survey 1</td>
-                        <td>22-08-2020</td>
-                        <td>26-08-2020</td>
-                        <td><button class="btn btn-success" type="button" (click)="onAttend()">Attend</button></td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Survey 2</td>
-                        <td>22-08-2020</td>
-                        <td>24-08-2020</td>
-                        <td><button class="btn btn-success" type="button" disabled="true">Attend</button></td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Survey 3</td>
-                        <td>23-08-2020</td>
-                        <td>27-08-2020</td>
-                        <td><button class="btn btn-success" type="button" onclick="window.location.href='survey1.html'">Attend</button></td>
-
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>Survey 4</td>
-                        <td>22-08-2020</td>
-                        <td>27-08-2020</td>
-                        <td><button class="btn btn-success" type="button" onclick="window.location.href='survey1.html'">Attend</button></td>
+                    <tr *ngFor="let survey of surveys; let i = index">
+                        <td>{{i+1}}</td>
+                        <td>{{ survey.name }}</td>
+                        <td>{{ this.datePipe.transform(survey.start_date,'yyyy-MMM-dd') }}</td>
+                        <td>{{ this.datePipe.transform(survey.end_date,'yyyy-MMM-dd') }}</td>
+                        <td><button class="btn btn-success" type="button" (click)="onAttend(survey._id)">Attend</button></td>
                     </tr>
                 </tbody>
             </table>

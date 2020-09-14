@@ -15,13 +15,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let question of questions; let i = index">
+                    <tr *ngFor="let surveyQuestion of surveyQuestions; let i = index">
                         <td>{{ i+1 }}</td>
-                        <td>{{ question.question }}</td>
+                        <td>{{ surveyQuestion.questionid.description }}</td>
                         <td>
-                            <ul>
-                                <li *ngFor="let option of question.option">{{option.options}}</li>
-                            </ul>
+                            <ol>
+                                <li *ngFor="let surveyOption of surveyQuestion.questionid.options">{{surveyOption}}</li>
+                            </ol>
                         </td>
                     </tr>
                 </tbody>

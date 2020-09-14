@@ -21,8 +21,8 @@ export class NewEmployeeComponent implements OnInit {
   @ViewChild('f',{static:false}) newEmployeeForm: NgForm;
   departments:Department[] = this.adminService.departments;
   designations:Designation[] = this.adminService.designations;
-  defaultDepartment:string = '5f5b9e0720f2b9c05adaeabe';
-  defaultDesignation:string = '5f5baa8e20f2b9c05adaeac5';
+  defaultDepartment:string = '5f5bb070a42c3d060046a5ed';
+  defaultDesignation:string = '5f5bb044a42c3d060046a5eb';
 
   ngOnInit(): void {  
             
@@ -46,7 +46,7 @@ export class NewEmployeeComponent implements OnInit {
       departmentid:departmentId,
       designationid:designationId
     }).subscribe(newEmployee => {
-        // this.adminService.addEmployee(newEmployee);
+        this.adminService.addEmployee(newEmployee);
         console.log(newEmployee);
     });    
     this.onCancel();

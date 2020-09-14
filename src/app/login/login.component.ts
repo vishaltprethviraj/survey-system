@@ -5,7 +5,7 @@ import {  faClipboardList } from '@fortawesome/free-solid-svg-icons';
 import { LoginService } from './login.service';
 import { Router } from '@angular/router';
 import { User } from './user.model';
-import { take } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-login',
@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.loginForm = new FormGroup({
       'username': new FormControl(null,Validators.required),
-      'password': new FormControl('',[Validators.required,Validators.minLength(5)])
+      'password': new FormControl(null,[Validators.required])
     });
   }
   
@@ -61,16 +61,19 @@ export class LoginComponent implements OnInit {
           this.isLoading =false;
           console.log(resData.message);
           this.error = 'The password entered is incorrect';
+          this.user = null;
         }     
         else if(resData.messgae == "user not found") {
           this.isLoading =false;
           console.log(resData.messgae);
+          this.user = null;
           this.error = "This user does not exist";
         }     
-        
-      }      
+        this.loginForm.reset();   
+      }   
+      
     );
-    this.loginForm.reset();
+    
   }
 
   onHandleError() {

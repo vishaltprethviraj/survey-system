@@ -1,2 +1,30 @@
-<!-- Content Row -->
-<router-outlet></router-outlet>
+<div class="container-fluid">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Survey 1</h1>
+    </div>
+    <form [formGroup]="surveyQuestionForm" *ngIf="currentQuestion" (ngSubmit)="onSubmit()">
+        <div>
+            <p style="font-size: 22px;">{{ qno }})&nbsp; {{ currentQuestion.description }}</p>
+            <div class="radio" *ngFor="let option of currentQuestion.options">
+                <label>
+                <input type="radio" formControlName="option" [value]="option">{{option}} 
+            </label>
+            </div>
+        </div>
+        <br>
+
+        <nav class="pagination-md">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link" style="cursor: pointer;" (click)="onPrevious()">Previous</a>
+                </li>
+                <li class="page-item" *ngFor="let i of indexOfQuestions" [ngClass]="{active: qno == i+1 }">
+                    <a class="page-link" style="cursor: pointer;" (click)="onSelectQuestionNumber(i)">{{ i+1 }}</a>
+                </li>
+                <li class="page-item" style="cursor: pointer;">
+                    <button class="page-link" type="submit" [disabled]="!surveyQuestionForm.valid">Next</button>
+                </li>
+            </ul>
+        </nav>
+    </form>
+</div>

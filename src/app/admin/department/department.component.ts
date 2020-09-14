@@ -58,7 +58,7 @@ export class DepartmentComponent implements OnInit {
 
    onDeleteDepartment() {
     console.log(this.id);
-    const userData = JSON.parse(localStorage.getItem('userData')) ;
+    // const userData = JSON.parse(localStorage.getItem('userData')) ;
     this.http.delete('http://74.208.150.171:3501/api/v1/department/'+ this.id).subscribe(res => {
     this.adminService.deleteDepartment(this.id);    
   },

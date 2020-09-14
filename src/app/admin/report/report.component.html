@@ -3,16 +3,19 @@
     <!-- Page Heading -->
     <h1 style="color:gray;">Report</h1>
     <br>
-    <form>
+    <form [formGroup]="reportForm">
         <div class="row">
-            <div class="col-xl-1">
+            <div class="col-xl-4">
                 <label for="surveyID">Survey</label>
+                <select name="surveyID" id="surveyID" class="form-control" (change)="onSurveySelect()" formControlName="survey">
+                    <option value="{{survey._id}}" *ngFor="let survey of surveys">{{ survey.name }}</option>            
+                </select>
             </div>
             <div class="col-xl-4">
-                <select name="surveyID" id="surveyID" class="form-control">
-            <option value="survey1">Survey 1</option>
-            <option value="survey2">Survey 2</option>
-        </select>
+                <label for="employee">Employee</label>
+                <select name="userID" id="userID" class="form-control" (change)="onUserSelect()" formControlName="employee">
+                    <option value="{{employee._id}}" *ngFor="let employee of employees">{{ employee.name }}</option>            
+                </select>
             </div>
         </div>
         <br>
@@ -31,18 +34,46 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th>1</th>
-                        <th><a href="#" style="color:#343abc">Employee 1</a></th>
-                        <th>Attended</th>
-                    </tr>
-                    <tr>
-                        <th>2</th>
-                        <th><a href="#" style="color:#343abc">Employee 4</a></th>
-                        <th>Not Attended</th>
+                    <tr *ngFor="let user of userlist;let i=index">
+                        <td>{{i+1}}</td>
+                        <td>
+                            <p style="color:black">{{ user.name }}</p>
+                        </td>
+                        <td *ngIf="user.status">
+                            <large class="text-success"> Attended </large>
+                        </td>
+                        <td *ngIf="!user.status">
+                            <large class="text-danger">Not attended</large>
+                        </td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
+    <br>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Sl.No</th>
+                        <th>Question</th>
+                        <th>Response</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let response of surveyResponses;let i=index">
+                        <td>{{i+1}}</td>
+                        <td>
+                            {{ response.questionid.description }}
+                        </td>
+                        <td>
+                            {{response.response}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 </div>

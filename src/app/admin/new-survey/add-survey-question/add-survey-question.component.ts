@@ -6,6 +6,8 @@ import { HttpClient } from '@angular/common/http';
 import { SurveyQuestion } from '../survey-question.model';
 import { DataStorageService } from 'src/app/shared/data-storage.service';
 import { ActivatedRoute, Params } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-add-survey-question',
@@ -14,13 +16,15 @@ import { ActivatedRoute, Params } from '@angular/router';
 })
 export class AddSurveyQuestionComponent implements OnInit {
 
-  constructor(private adminService:AdminService,private http:HttpClient,private dataStorageService:DataStorageService,private route:ActivatedRoute) { }
-
+  constructor(private adminService:AdminService,private http:HttpClient,private dataStorageService:DataStorageService,private route:ActivatedRoute,private modalService:NgbModal) { }
+  
+  faTrash = faTrash;
   questions: Question[] = this.adminService.questions; 
   surveyQuestions: SurveyQuestion[];      
   addSurveyQuestionForm: FormGroup;
   id:string;
   isAdded = false;
+  questionId:string;
 
   ngOnInit(): void {    
     this.route.params
@@ -33,7 +37,7 @@ export class AddSurveyQuestionComponent implements OnInit {
         
     
     this.addSurveyQuestionForm = new FormGroup({
-      'surveyQuestion': new FormControl('5f5d05704600aefd987a511')
+      'surveyQuestion': new FormControl("5f5f38d23fe71d9a59aef33f")
     });
 
   }
@@ -54,10 +58,10 @@ export class AddSurveyQuestionComponent implements OnInit {
     this.http.post<SurveyQuestion>('http://74.208.150.171:3501/api/v1/surveyquestion',
                                   {
                                     surveyid: this.id,
-                                    questionId: questionId
+                                    questionid: questionId
                                   }).subscribe(newSurveyQuestion => {
-                                    console.log(newSurveyQuestion);
-                                    console.log("questionId: "+questionId);
+                                    console.log(newSurveyQuestion);                                    
+                                    this.adminService.addSurveyQuestion(newSurveyQuestion);
                                     this.isAdded = true;
                                   });
 
@@ -66,5 +70,44 @@ export class AddSurveyQuestionComponent implements OnInit {
       console.log(surveyQuestions);
     });                                
   }
+
+  openModal(targetModal, surveyQuestion) {
+    this.modalService.open(targetModal, {
+     centered: true,
+     backdrop: 'static'
+    });
+   this.questionId = surveyQuestion.questionid._id; 
+   console.log(this.id);   
+   }
+
+   onDeleteSurveyQuestion() {
+    console.log(this.id);
+    // const userData = JSON.parse(localStorage.getItem('userData')) ;
+    this.http.delete('http://74.208.150.171:3501/api/v1/surveyquestion/'+ this.id+'/'+this.questionId).subscribe(res => {
+    console.log(res);    
+  },
+  error => {
+    console.log(error);
+  }); 
+  this.modalService.dismissAll();       
+   }
+
+   onCancel() {
+    
+    this.http.delete('http://74.208.150.171:3501/api/v1/surveyquestion/'+ this.id).subscribe(res => {
+      console.log(res);
+    },
+    error => {
+      console.log(error);
+    }); 
+
+    this.http.delete('http://74.208.150.171:3501/api/v1/survey/'+ this.id).subscribe(res => {
+      console.log(res);
+    },
+    error => {
+      console.log(error);
+    }); 
+
+   }
 
 }

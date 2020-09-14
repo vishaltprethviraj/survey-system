@@ -56,8 +56,10 @@ export class LoginService {
         );
            
         const user = new User(message,accesstoken,refreshtoken,roleid,username,email,expirationDate,_id);        
-        this.user.next(user);                        
-        localStorage.setItem('userData',JSON.stringify(user));        
+        this.user.next(user);         
+        if(localStorage.getItem("username") === null) {
+            localStorage.setItem('userData',JSON.stringify(user));        
+        }                       
         // var retrievedItem = localStorage.getItem('user');
         // console.log('Retrieved Item: ',JSON.parse(retrievedItem));
     }

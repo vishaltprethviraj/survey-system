@@ -38,12 +38,25 @@ export class HomeComponent implements OnInit,OnDestroy {
       // console.log(questions);
     });       
 
+    //employee initialization
+    this.dataStorageService.employeeList().subscribe(employees => {
+      this.adminService.setEmployee(employees);
+      console.log(employees);
+      console.log(this.adminService.employees);
+    });
+    
     this.userSub = this.loginService.user.subscribe(user => {
       this.isAuthenticated = !user ? false : true;        //!!user can also be used           
     });
     console.log(this.isAuthenticated);
 
+    //survey initialization
+    this.dataStorageService.surveyList().subscribe(surveys => {
+      this.adminService.setSurvey(surveys);      
+      console.log(surveys);
+    });
 
+    
   }
   
   

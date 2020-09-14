@@ -203,4 +203,9 @@ export class AdminService {
       this.surveyQuestionChanged.next(this.surveyQuestions.slice());
     }
 
+    addSurveyQuestion(newSurveyQuestion:SurveyQuestion) {
+      this.surveyQuestions.push(newSurveyQuestion);
+      this.surveyQuestionChanged.next(this.surveyQuestions.slice());
+    }
+
 }

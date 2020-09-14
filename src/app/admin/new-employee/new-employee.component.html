@@ -9,13 +9,19 @@
         <div class="row">
             <div class="col-xl-4">
                 <label for="username">Username</label>
-                <input type="text" class="form-control" id="username" ngModel name="username" required #username="ngModel">
-                <span class="help-block" *ngIf="!username.valid && username.touched"> *Please enter your username</span>
+                <input type="text" class="form-control" id="username" ngModel name="username" required #username="ngModel" minlength="3">
+                <div *ngIf="username.errors && (username.invalid && username.touched)">
+                    <small class="text-danger" *ngIf="username.errors?.required">*username is required</small>
+                    <small class="text-danger" *ngIf="username.errors?.minlength">*username should have atleast 3 characters</small>
+                </div>
             </div>
             <div class="col-xl-4">
                 <label for="name">Name</label>
-                <input type="text" class="form-control" id="name" ngModel name="name" required #name="ngModel">
-                <span class="help-block" *ngIf="!name.valid && name.touched"> *Please enter your name</span>
+                <input type="text" class="form-control" id="name" ngModel name="name" maxlength="10" required #name="ngModel">
+                <div *ngIf="name.errors && (name.invalid && name.touched)">
+                    <small class="text-danger" *ngIf="name.errors?.required">*name is required</small>
+                    <small class="text-danger" *ngIf="name.errors?.maxlength">*name should not exceed 10 characters</small>
+                </div>
             </div>
         </div>
         <hr>
@@ -25,12 +31,19 @@
             <div class="col-xl-4">
                 <label for="email">Email</label>
                 <input type="email" class="form-control" id="email" ngModel name="email" required email #email="ngModel">
-                <span class="help-block" *ngIf="!email.valid && email.touched"> *Please enter a valid email</span>
+                <!-- <span style="font-size: small;" class="help-block" *ngIf="!email.valid && email.touched"> *Please enter a valid email</span> -->
+                <div *ngIf="email.errors && (email.invalid && email.touched)">
+                    <small class="text-danger" *ngIf="email.errors?.required">*email is required</small>
+                    <small class="text-danger" *ngIf="email.errors?.email">*please enter a valid email</small>
+                </div>
             </div>
             <div class="col-xl-4">
                 <label for="phone">Mobile Number</label>
                 <input type="tel" class="form-control" id="phone" ngModel name="phoneNumber" required pattern="^[0-9]{10}$" #phone="ngModel">
-                <span class="help-block" *ngIf="!phone.valid && phone.touched"> *Please enter a valid phone number</span>
+                <div *ngIf="phone.errors && (phone.invalid && phone.touched)">
+                    <small class="text-danger" *ngIf="phone.errors?.required">*phone number is required</small>
+                    <small class="text-danger " *ngIf="phone.errors?.pattern">*Phone Number should be atleast 10 digits</small>
+                </div>
             </div>
         </div>
         <hr>
