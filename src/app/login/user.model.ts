@@ -6,14 +6,14 @@ export class User {
         public roleid:string,
         public username:string,
         public email:string,
-        public _tokenExpirationDate:Date,
+        // public _tokenExpirationDate:Date,
         public _id:string
     ){}
 
     get token() {
-        if(!this._tokenExpirationDate || new Date() > this._tokenExpirationDate) {
-            return null;
-        }
+        // if(!this._tokenExpirationDate || new Date() > this._tokenExpirationDate) {
+        //     return null;
+        // }
         
         return this._token;
     }

@@ -7,7 +7,8 @@ export class Survey {
     public description: string;
     public thank_you_message: string;
     public start_date: Date;
-    public end_date: Date;      
+    public end_date: Date;
+    public disableButton:boolean = false;      
     
     
     constructor(_id:string,name:string,description:string,

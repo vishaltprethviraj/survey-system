@@ -26,6 +26,7 @@ export class SurveyQuestionComponent implements OnInit {
   currentQuestion: Question;
   totalQuestions: number;
   selectedQuestion: number;
+  surveyName:string;
 
   ngOnInit(): void {
 
@@ -35,6 +36,7 @@ export class SurveyQuestionComponent implements OnInit {
           this.id = params['surveyId'];
           console.log(this.id);
           this.dataStorageService.getSurveyQuestions(this.id).subscribe(surveyQuestions => {
+            this.surveyName = surveyQuestions[0].surveyid.name;            
             console.log(surveyQuestions);
             console.log(surveyQuestions.length);
             for (let i = 0; i < (surveyQuestions.length); i++) {

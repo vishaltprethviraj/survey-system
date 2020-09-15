@@ -14,13 +14,19 @@ export class AuthInterceptorService implements HttpInterceptor {
                 if(!user) {
                     return next.handle(req);
                 }
+                if(user._token) {
                 const modifiedReq = req.clone(     { 
                     headers: new HttpHeaders(
                     {'Content-Type' : 'application/json',
                     'Authorization': user._token
                   })
-            })
-                return next.handle(modifiedReq);
+            });
+                return next.handle(modifiedReq);                    
+            }
+            else {
+                return next.handle(req);
+            }
+
             })
         );
         

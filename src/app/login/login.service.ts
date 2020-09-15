@@ -37,7 +37,7 @@ export class LoginService {
             username: username,
             password: password,            
         }).pipe(tap(resData => {            
-            this.handleAuthentication(resData.role,resData.accesstoken,resData.refreshtoken,resData.roleid,resData.username,resData.email,+resData.expire,resData._id);
+            this.handleAuthentication(resData.role,resData.accesstoken,resData.refreshtoken,resData.roleid,resData.username,resData.email,resData._id);
         }));
         
     }
@@ -50,12 +50,12 @@ export class LoginService {
         localStorage.removeItem('designationData');       
     }
 
-    private handleAuthentication(message:string,accesstoken:string,refreshtoken:string,roleid:string,username:string,email:string,expiresIn:number,_id:string) {
-        const expirationDate = new Date(
-            new Date().getTime() + expiresIn * 1000
-        );
+    private handleAuthentication(message:string,accesstoken:string,refreshtoken:string,roleid:string,username:string,email:string,_id:string) {
+        // const expirationDate = new Date(
+        //     new Date().getTime() + expiresIn * 1000
+        // );
            
-        const user = new User(message,accesstoken,refreshtoken,roleid,username,email,expirationDate,_id);        
+        const user = new User(message,accesstoken,refreshtoken,roleid,username,email,_id);        
         this.user.next(user);         
         if(localStorage.getItem("username") === null) {
             localStorage.setItem('userData',JSON.stringify(user));        

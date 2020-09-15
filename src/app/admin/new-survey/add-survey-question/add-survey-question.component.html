@@ -18,8 +18,8 @@
                 <div class="row">
                     <div class="col-xl-6">
                         Question
-                        <select formControlName="surveyQuestion" class="form-control" (change)="getOption($event.target.value);">                                
-                            <option [value]="question._id" *ngFor="let question of questions;let i=index">{{ question.description }}</option>                    
+                        <select formControlName="surveyQuestion" class="form-control" (change)="getOption($event.target.value);" autofocus>                                
+                            <option [value]="question._id"  *ngFor="let question of questions;let i=index">{{ question.description }}</option>                    
                         </select>
                     </div>
                     <div class="col-xl-4">
@@ -87,7 +87,7 @@
                 <div class="row ">
                     <div class="col-xl-4 ">
                         <button type="button " class="btn btn-success " routerLink="/admin/survey-list" [disabled]="!isAdded">Submit</button> &nbsp;&nbsp;
-                        <button type="button " class="btn btn-danger " routerLink="/admin/home" (click)="onCancel()">Cancel</button>
+                        <button type="button " class="btn btn-danger " routerLink="/admin/survey-list" [disabled]="!isAdded">Cancel</button>
                     </div>
                 </div>
             </form>

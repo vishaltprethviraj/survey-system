@@ -11,7 +11,8 @@
             </div>
             <div class="col-xl-6">
                 <label for="startDate">Start Date</label>
-                <input type="date" class="form-control" min="{{minDate}}" (change)="onChange()" id="startDate" formControlName="startDate">
+                <input type="date" class="form-control" (change)="onChange()" id="startDate" formControlName="startDate">
+                <!-- min="{{minDate}}" -->
             </div>
         </div>
         <br>
@@ -22,7 +23,8 @@
             </div>
             <div class="col-xl-6">
                 <label for="endDate">End Date</label>
-                <input type="date" class="form-control" min="{{minDate}}" id="endDate" formControlName="endDate">
+                <input type="date" class="form-control" id="endDate" formControlName="endDate">
+                <!--min="{{minDate}}"-->
             </div>
         </div>
         <br>

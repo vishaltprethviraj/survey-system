@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { LoginService } from 'src/app/login/login.service';
@@ -12,8 +13,10 @@ import { AdminService } from '../admin.service';
 export class HomeComponent implements OnInit,OnDestroy {
   isAuthenticated = true;
   private userSub: Subscription;
+  activeSurveys:number = 0;
+  currentDate = new Date();
 
-  constructor(private loginService:LoginService,private dataStorageService:DataStorageService,private adminService:AdminService) { }
+  constructor(private loginService:LoginService,private dataStorageService:DataStorageService,private adminService:AdminService,private datePipe:DatePipe) { }
 
   ngOnInit(): void {
     //department Initialization
@@ -41,20 +44,29 @@ export class HomeComponent implements OnInit,OnDestroy {
     //employee initialization
     this.dataStorageService.employeeList().subscribe(employees => {
       this.adminService.setEmployee(employees);
-      console.log(employees);
-      console.log(this.adminService.employees);
+      // console.log(employees);
+      // console.log(this.adminService.employees);
     });
     
     this.userSub = this.loginService.user.subscribe(user => {
       this.isAuthenticated = !user ? false : true;        //!!user can also be used           
     });
-    console.log(this.isAuthenticated);
+    // console.log(this.isAuthenticated);
 
     //survey initialization
     this.dataStorageService.surveyList().subscribe(surveys => {
       this.adminService.setSurvey(surveys);      
       console.log(surveys);
-    });
+      console.log(this.currentDate);
+      console.log(surveys[0].end_date);
+      for(var i=0;i<surveys.length;i++) {
+        if(this.datePipe.transform(this.currentDate,'yyyy-MM-dd') < this.datePipe.transform(surveys[i].end_date,'yyyy-MM-dd')) {
+          this.activeSurveys  = this.activeSurveys + 1;
+          console.log(this.activeSurveys);
+          console.log(surveys[i].end_date);
+        }
+      }
+    });    
 
     
   }

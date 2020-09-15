@@ -15,7 +15,8 @@ export class ListSurveyComponent implements OnInit {
     
   surveys:Survey[]; 
   surveyQuestions:SurveyQuestion[];
-
+  currentDate:Date = new Date();
+  
   constructor(private router:Router,private route:ActivatedRoute,private dataStorageService:DataStorageService,private adminService:AdminService,private datePipe:DatePipe) {    
   }
 

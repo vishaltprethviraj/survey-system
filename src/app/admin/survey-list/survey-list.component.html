@@ -3,6 +3,7 @@
     <!-- Page Heading -->
     <h1 style="color:gray;">List of Surveys</h1>
     <br>
+    <p>Click on the survey for viewing questions and options</p>
     <!-- Content Row -->
     <div class="card-body">
         <div class="table-responsive">
@@ -49,7 +50,7 @@
                                 </div>
 
                                 <div class="modal-body">
-                                    <form (ngSubmit)="onDeleteDepartment()" #f="ngForm">
+                                    <form (ngSubmit)="onDeleteSurvey()" #f="ngForm">
                                         Are you sure you want to delete this?
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">No</button>

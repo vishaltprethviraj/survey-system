@@ -8,6 +8,7 @@ import { DataStorageService } from 'src/app/shared/data-storage.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { Survey } from '../../survey-list/survey.model';
 
 @Component({
   selector: 'app-add-survey-question',
@@ -35,16 +36,22 @@ export class AddSurveyQuestionComponent implements OnInit {
       );
     console.log("SurveyID: "+this.id);
         
-    
+    this.adminService.surveyQuestionChanged
+    .subscribe(
+      (surveyQuestions: SurveyQuestion[]) => {
+        this.surveyQuestions = surveyQuestions;
+      }
+    ); 
     this.addSurveyQuestionForm = new FormGroup({
-      'surveyQuestion': new FormControl("5f5f38d23fe71d9a59aef33f")
+      'surveyQuestion': new FormControl("5f5d40233fedda12bc913ef8")
     });
 
   }
   
   selectedQuestion: Question[];
   options: [];  
-  
+  selectedQuestionId:string;
+
   getOption(id:string) {    
     this.selectedQuestion = this.questions.filter(question => question._id == id);
     let index = this.questions.indexOf(this.selectedQuestion[0]);
@@ -63,6 +70,7 @@ export class AddSurveyQuestionComponent implements OnInit {
                                     console.log(newSurveyQuestion);                                    
                                     this.adminService.addSurveyQuestion(newSurveyQuestion);
                                     this.isAdded = true;
+                                    this.selectedQuestionId = newSurveyQuestion.questionid._id;
                                   });
 
     this.dataStorageService.getSurveyQuestions(this.id).subscribe(surveyQuestions => {
@@ -83,31 +91,16 @@ export class AddSurveyQuestionComponent implements OnInit {
    onDeleteSurveyQuestion() {
     console.log(this.id);
     // const userData = JSON.parse(localStorage.getItem('userData')) ;
-    this.http.delete('http://74.208.150.171:3501/api/v1/surveyquestion/'+ this.id+'/'+this.questionId).subscribe(res => {
-    console.log(res);    
+    console.log(this.questionId);    
+    this.http.delete<SurveyQuestion>('http://74.208.150.171:3501/api/v1/surveyquestion/'+ this.id+'/'+this.questionId).subscribe(surveyQuestion => {    
+    console.log(surveyQuestion);  
+    this.adminService.deleteSurveyQuestions(this.id,this.questionId);  
   },
   error => {
     console.log(error);
-  }); 
+  });   
   this.modalService.dismissAll();       
    }
-
-   onCancel() {
-    
-    this.http.delete('http://74.208.150.171:3501/api/v1/surveyquestion/'+ this.id).subscribe(res => {
-      console.log(res);
-    },
-    error => {
-      console.log(error);
-    }); 
-
-    this.http.delete('http://74.208.150.171:3501/api/v1/survey/'+ this.id).subscribe(res => {
-      console.log(res);
-    },
-    error => {
-      console.log(error);
-    }); 
-
-   }
+   
 
 }

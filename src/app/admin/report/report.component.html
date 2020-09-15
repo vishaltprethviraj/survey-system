@@ -7,25 +7,26 @@
         <div class="row">
             <div class="col-xl-4">
                 <label for="surveyID">Survey</label>
-                <select name="surveyID" id="surveyID" class="form-control" (change)="onSurveySelect()" formControlName="survey">
+                <select name="surveyID" id="surveyID" class="form-control" formControlName="survey" autofocus>
                     <option value="{{survey._id}}" *ngFor="let survey of surveys">{{ survey.name }}</option>            
                 </select>
             </div>
             <div class="col-xl-4">
                 <label for="employee">Employee</label>
-                <select name="userID" id="userID" class="form-control" (change)="onUserSelect()" formControlName="employee">
+                <select name="userID" id="userID" class="form-control" formControlName="employee" autofocus>
                     <option value="{{employee._id}}" *ngFor="let employee of employees">{{ employee.name }}</option>            
                 </select>
             </div>
         </div>
         <br>
+        <button class="btn btn-primary" (click)="onShow()">Show</button>
     </form>
     <br>
-    <p style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Click on an employee to get his/her response for the selected survey</p>
     <!-- Content Row -->
+    <h1 style="text-align: center;" [hidden]="hideTableSurvey">Survey Report</h1>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" [hidden]="hideTableSurvey">
                 <thead>
                     <tr>
                         <th>Sl.No</th>
@@ -50,10 +51,11 @@
             </table>
         </div>
     </div>
-    <br>
+    <hr [hidden]="hideTableResponse">
+    <h1 style="text-align: center;" [hidden]="hideTableResponse">Responses</h1>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" [hidden]="hideTableResponse">
                 <thead>
                     <tr>
                         <th>Sl.No</th>
@@ -75,5 +77,7 @@
             </table>
         </div>
     </div>
-
+    <div class="alert alert-danger" style="text-align: center;" [hidden]="hideAlert">
+        This user has not attended the survey
+    </div>
 </div>

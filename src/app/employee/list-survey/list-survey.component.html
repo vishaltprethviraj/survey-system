@@ -24,7 +24,7 @@
                         <td>{{ survey.name }}</td>
                         <td>{{ this.datePipe.transform(survey.start_date,'yyyy-MMM-dd') }}</td>
                         <td>{{ this.datePipe.transform(survey.end_date,'yyyy-MMM-dd') }}</td>
-                        <td><button class="btn btn-success" type="button" (click)="onAttend(survey._id)">Attend</button></td>
+                        <td><button class="btn btn-success" type="button" (click)="onAttend(survey._id)" [disabled]="(currentDate | date:'yyyy-MM-dd') > (survey.end_date | date:'yyyy-MM-dd')">Attend</button></td>
                     </tr>
                 </tbody>
             </table>

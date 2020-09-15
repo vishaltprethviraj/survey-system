@@ -117,17 +117,6 @@ export class AdminService {
       this.employeeChanged.next(this.employees.slice());
     }
 
-
-    //audit log section
-
-    auditLogs: AuditLog[] = [
-      new AuditLog(1,[this.employees[0]],'Home','Logged In','24-08-2020 11:50'),
-      new AuditLog(2,[this.employees[1]],'New Survey','Create Survey','25-08-2020 11:50'),
-    ]
-
-    getAuditLog() {
-      return this.auditLogs.slice();
-    }
     
     //question section
 
@@ -207,5 +196,25 @@ export class AdminService {
       this.surveyQuestions.push(newSurveyQuestion);
       this.surveyQuestionChanged.next(this.surveyQuestions.slice());
     }
+    
+    selectedSurveyQuestion:SurveyQuestion[];
+    
+    updateSurveyQuestion(surveyId:string,questionId:string,newSurveyQuestion:SurveyQuestion) {
+      this.selectedSurveyQuestion = this.surveyQuestions.filter(surveyQuestion => (surveyQuestion.surveyid._id == surveyId && surveyQuestion.questionid._id == questionId));
+      let index = this.surveyQuestions.indexOf(this.selectedSurveyQuestion[0]);                        
+      this.surveyQuestions[index] = newSurveyQuestion;
+      this.surveyChanged.next(this.surveys.slice());
+    }        
+
+    deleteSurveyQuestions(surveyId:string,questionId:string) {
+      this.selectedSurveyQuestion = this.surveyQuestions.filter(surveyQuestion => (surveyQuestion.surveyid._id == surveyId && surveyQuestion.questionid._id == questionId));
+      let index = this.surveyQuestions.indexOf(this.selectedSurveyQuestion[0]);                        
+      this.surveyQuestions.splice(index,1),
+      this.surveyQuestionChanged.next(this.surveyQuestions.slice());
+    }
+
+    //active survey calculation
+    activeSurveys:number;
+        
 
 }
