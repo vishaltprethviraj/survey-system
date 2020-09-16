@@ -11168,7 +11168,7 @@ a:focus {
 }
 
 .bg-login-image {
-    background: url("../src/app/img/check-list.jpg");
+    background: url("../src/assets/img/check-list.jpg");
     background-position: center;
     background-size: cover;
 }

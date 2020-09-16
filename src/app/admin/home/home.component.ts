@@ -60,7 +60,7 @@ export class HomeComponent implements OnInit,OnDestroy {
       console.log(this.currentDate);
       console.log(surveys[0].end_date);
       for(var i=0;i<surveys.length;i++) {
-        if(this.datePipe.transform(this.currentDate,'yyyy-MM-dd') < this.datePipe.transform(surveys[i].end_date,'yyyy-MM-dd')) {
+        if(this.datePipe.transform(this.currentDate,'yyyy-MM-dd') <= this.datePipe.transform(surveys[i].end_date,'yyyy-MM-dd')) {
           this.activeSurveys  = this.activeSurveys + 1;
           console.log(this.activeSurveys);
           console.log(surveys[i].end_date);

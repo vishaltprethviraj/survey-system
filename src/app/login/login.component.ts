@@ -38,9 +38,9 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     // console.log(this.loginForm);
-    // if(!this.loginForm.valid) {
-    //   return ;
-    // }
+    if(!this.loginForm.valid) {
+      return ;
+    }
     const username = this.loginForm.value['username'];
     const password = this.loginForm.value['password'];
     
@@ -60,14 +60,14 @@ export class LoginComponent implements OnInit {
         else if(resData.message == "wrong password") {
           this.isLoading =false;
           console.log(resData.message);
-          this.error = 'The password entered is incorrect';
+          this.error = 'Invalid  password';
           this.user = null;
         }     
         else if(resData.messgae == "user not found") {
           this.isLoading =false;
           console.log(resData.messgae);
           this.user = null;
-          this.error = "This user does not exist";
+          this.error = "couldn't find your account";
         }     
         this.loginForm.reset();   
       }   
