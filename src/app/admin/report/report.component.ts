@@ -23,16 +23,18 @@ export class ReportComponent implements OnInit {
 
   surveys:Survey[] = [];
   employees:Employee[] = [];
+  notEmployee:Employee[] = [];
   reportForm: FormGroup;
   userlist: UserList[];
   surveyResponses: SurveyResponse[] = [];
   hideTableSurvey = true;
   hideTableResponse = true;
   hideAlert = true;
+  j:number = 0;
 
   ngOnInit(): void {
-    this.surveys = this.adminService.surveys;  
-    this.employees = this.adminService.employees;
+    this.surveys = this.adminService.surveys;      
+    this.employees = this.adminService.employees.slice(1);    
     this.reportForm = new FormGroup({
       'survey': new FormControl('5f5f3f813fe71d9a59aef34c'),
       'employee': new FormControl('5f5fb478eca8711d389c07f2')
@@ -44,7 +46,7 @@ export class ReportComponent implements OnInit {
     const surveyid = this.reportForm.value['survey'];
     this.http.get<Report>('http://74.208.150.171:3501/api/v1/surveyresponse/'+surveyid).subscribe(report => {
         console.log(report.userlist);                      
-        this.userlist = report.userlist;
+        this.userlist = report.userlist.slice(1);
         this.hideTableSurvey = false;        
     });
 

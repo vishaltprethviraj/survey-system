@@ -57,23 +57,17 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/employee/home']);
           this.isLoading = false;
         }  
-        else if(resData.message == "wrong password") {
-          this.isLoading =false;
-          console.log(resData.message);
-          this.error = 'Invalid  password';
-          this.user = null;
-        }     
-        else if(resData.messgae == "user not found") {
-          this.isLoading =false;
-          console.log(resData.messgae);
-          this.user = null;
-          this.error = "couldn't find your account";
-        }     
+        else if(resData.message == "wrong password" || resData.messgae == "user not found" ) {
+          this.isLoading =false;         
+          this.error = 'Invalid  username or password';
+          this.user = null;                   
+        }
+                   
         this.loginForm.reset();   
       }   
       
-    );
-    
+    );     
+    scrollTo(100,500);
   }
 
   onHandleError() {

@@ -10,7 +10,7 @@
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
-                        <th>Id</th>
+                        <th>Sl.No</th>
                         <th>Name</th>
                         <th>Description</th>
                         <th>Start Date</th>
@@ -18,18 +18,17 @@
                         <th>Thank You Message</th>
                         <th>Edit</th>
                         <th>Delete</th>
-                        <!-- <th>Status</th> -->
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let survey of surveys; let i = index">
+                    <tr *ngFor="let survey of surveys.slice().reverse(); let i = index">
                         <td>{{ i+ 1}}</td>
                         <td>
                             <a style="color: rgb(94, 41, 238);margin-left: 0rem;cursor: pointer;" [routerLink]="[survey._id,'detail']">{{survey.name}}</a>
                         </td>
                         <td>{{ survey.description }} </td>
-                        <td>{{ this.datePipe.transform(survey.start_date,'yyyy-MMM-dd') }}</td>
-                        <td>{{ this.datePipe.transform(survey.end_date,'yyyy-MMM-dd') }}</td>
+                        <td style="width: 120px;">{{ this.datePipe.transform(survey.start_date,'dd-MM-yyyy') }}</td>
+                        <td style="width: 120px;">{{ this.datePipe.transform(survey.end_date,'dd-MM-yyyy') }}</td>
                         <td>{{ survey.thank_you_message }}</td>
                         <td>
                             <a style="cursor:pointer" [routerLink]="[survey._id,'edit']">
@@ -52,6 +51,8 @@
                                 <div class="modal-body">
                                     <form (ngSubmit)="onDeleteSurvey()" #f="ngForm">
                                         Are you sure you want to delete this?
+                                        <br>
+                                        <u><b>Survey:{{survey.name}}</b></u>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">No</button>
                                             <button type="submit" class="btn btn-primary">Yes</button>

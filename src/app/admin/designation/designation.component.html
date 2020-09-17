@@ -19,7 +19,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let designation of designations;let i = index">
+                    <tr *ngFor="let designation of designations.slice().reverse();let i = index">
                         <td>{{ i+1 }}</td>
                         <td>{{ designation.name }}</td>
                         <td>
@@ -42,6 +42,8 @@
                                 <div class="modal-body">
                                     <form (ngSubmit)="onDeleteDesignation()" #f="ngForm">
                                         Are you sure you want to delete this?
+                                        <br>
+                                        <u><b>Designation: {{ designation.name }}</b></u>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">No</button>
                                             <button type="submit" class="btn btn-primary">Yes</button>

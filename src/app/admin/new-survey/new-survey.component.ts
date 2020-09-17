@@ -5,7 +5,6 @@ import { HttpClient } from '@angular/common/http';
 import { AdminService } from '../admin.service';
 import { Survey } from '../survey-list/survey.model';
 import { DatePipe } from '@angular/common';
-import { NgbTypeaheadWindow } from '@ng-bootstrap/ng-bootstrap/typeahead/typeahead-window';
 
 @Component({
   selector: 'app-new-survey',

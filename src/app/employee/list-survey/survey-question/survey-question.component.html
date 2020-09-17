@@ -7,7 +7,7 @@
             <p style="font-size: 22px;">{{ qno }})&nbsp; {{ currentQuestion.description }}</p>
             <div class="radio" *ngFor="let option of currentQuestion.options">
                 <label>
-                <input type="radio" formControlName="option" [value]="option"> &nbsp;{{option}} 
+                <input type="radio" formControlName="surveyOption" [value]="option"> &nbsp;{{option}} 
             </label>
             </div>
         </div>

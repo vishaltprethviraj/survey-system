@@ -5,7 +5,7 @@
     <hr>
     <h3>Personal Details</h3>
     <hr>
-    <form [formGroup]="editEmployeeForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="editEmployeeForm" (ngSubmit)="onSubmit()" autocomplete="off">
         <div class="row">
             <div class="col-xl-4">
                 <label for="username">Username</label>

@@ -53,7 +53,7 @@ export class SurveyQuestionComponent implements OnInit {
         }
       );
     this.surveyQuestionForm = new FormGroup({
-      'option': new FormControl(null,Validators.required)
+      'surveyOption': new FormControl(null,Validators.required)
     });
 
   }
@@ -97,12 +97,13 @@ export class SurveyQuestionComponent implements OnInit {
     // console.log(this.selectedQuestion+1);
     // console.log(this.totalQuestions);
     this.user = JSON.parse(localStorage.getItem('userData'));      
-    this.surveyResponse = this.surveyQuestionForm.value['option'];
+    this.surveyResponse = this.surveyQuestionForm.value['surveyOption'];
     console.log(description);
     console.log(questionid);
     console.log(this.user._id);
     console.log(this.id);    
     console.log(this.surveyResponse);
+    
     this.http.post("http://74.208.150.171:3501/api/v1/surveyresponse",{
       "surveyid": this.id,
 	    "userid": this.user._id,
@@ -111,7 +112,11 @@ export class SurveyQuestionComponent implements OnInit {
     }).subscribe(resData => {
       console.log(resData);
     });
-    
+        
+    this.surveyQuestionForm = new FormGroup({
+      'surveyOption': new FormControl(null,Validators.required)
+    });
+
     if((this.selectedQuestion+1) == this.totalQuestions) {
       this.router.navigate(['/employee/ok-page']);
     }   

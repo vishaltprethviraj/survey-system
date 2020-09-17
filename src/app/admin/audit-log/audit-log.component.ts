@@ -32,8 +32,16 @@ export class AuditLogComponent implements OnInit {
      'toDate':new FormControl('')
    });
   }
-  
-  fromDate:string;
+    
+  minDate:string; 
+
+  onChange() {
+    let newMinDate = this.auditLogForm.value['fromDate'];    
+    let newMinimumDate = new Date(newMinDate);
+    newMinimumDate.setDate(newMinimumDate.getDate()+1);
+    this.minDate = this.datePipe.transform(newMinimumDate,'yyyy-MM-dd');
+    console.log(this.minDate);
+  }
 
   onSubmit() {
     const userid = this.auditLogForm.value['employee'];

@@ -26,6 +26,9 @@ export class AddSurveyQuestionComponent implements OnInit {
   id:string;
   isAdded = false;
   questionId:string;
+  selectedQuestion: Question[];
+  options: [];  
+  selectedQuestionId:string;
 
   ngOnInit(): void {    
     this.route.params
@@ -47,10 +50,7 @@ export class AddSurveyQuestionComponent implements OnInit {
     });
 
   }
-  
-  selectedQuestion: Question[];
-  options: [];  
-  selectedQuestionId:string;
+    
 
   getOption(id:string) {    
     this.selectedQuestion = this.questions.filter(question => question._id == id);
@@ -58,46 +58,36 @@ export class AddSurveyQuestionComponent implements OnInit {
     this.options = this.questions[index].options;    
   }
 
+  selectedSurveyQuestion:Question[];
+
   onAddQuestion() {   
  
-    const questionId = this.addSurveyQuestionForm.value['surveyQuestion'];    
-    console.log("Survey ID: "+this.id);
+    const questionId = this.addSurveyQuestionForm.value['surveyQuestion'];        
     this.http.post<SurveyQuestion>('http://74.208.150.171:3501/api/v1/surveyquestion',
                                   {
                                     surveyid: this.id,
                                     questionid: questionId
-                                  }).subscribe(newSurveyQuestion => {
-                                    console.log(newSurveyQuestion);                                    
+                                  }).subscribe(newSurveyQuestion => {                                    
+                                    console.log(newSurveyQuestion);
                                     this.adminService.addSurveyQuestion(newSurveyQuestion);
-                                    this.isAdded = true;
-                                    this.selectedQuestionId = newSurveyQuestion.questionid._id;
+                                    this.isAdded = true; 
+                                    this.questions.slice();                                                                                                                                        
                                   });
 
     this.dataStorageService.getSurveyQuestions(this.id).subscribe(surveyQuestions => {
-      this.surveyQuestions = surveyQuestions;
-      console.log(surveyQuestions);
-    });                                
+      this.surveyQuestions = surveyQuestions;      
+    });    
+                                
   }
-
-  openModal(targetModal, surveyQuestion) {
-    this.modalService.open(targetModal, {
-     centered: true,
-     backdrop: 'static'
-    });
-   this.questionId = surveyQuestion.questionid._id; 
-   console.log(this.id);   
-   }
-
-   onDeleteSurveyQuestion() {
-    console.log(this.id);
-    // const userData = JSON.parse(localStorage.getItem('userData')) ;
-    console.log(this.questionId);    
-    this.http.delete<SurveyQuestion>('http://74.208.150.171:3501/api/v1/surveyquestion/'+ this.id+'/'+this.questionId).subscribe(surveyQuestion => {    
+     
+  onDeleteSurveyQuestion(questionId:string) {        
+       
+    this.http.delete<SurveyQuestion>('http://74.208.150.171:3501/api/v1/surveyquestion/'+ this.id+'/'+questionId).subscribe(surveyQuestion => {    
     console.log(surveyQuestion);  
-    this.adminService.deleteSurveyQuestions(this.id,this.questionId);  
+    this.adminService.deleteSurveyQuestions(this.id,questionId);          
   },
   error => {
-    console.log(error);
+    
   });   
   this.modalService.dismissAll();       
    }

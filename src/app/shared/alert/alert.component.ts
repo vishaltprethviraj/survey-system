@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
     selector:'app-alert',
@@ -10,6 +11,8 @@ export class AlertComponent {
     @Input() message: string;
     @Output() close = new EventEmitter<void>();
 
+    faExclamationCircle = faExclamationCircle;
+    
     onClose() {
         this.close.emit();
     }

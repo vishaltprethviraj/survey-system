@@ -18,15 +18,15 @@ export class EmployeeDetailsComponent implements OnInit {
   faPencilAlt = faPencilAlt;
   faTrash = faTrash;
   
-  employees: Employee[] = this.adminService.employees;
-
+  employees: Employee[] = this.adminService.employees;  
   id:string;
+  slNo:[] ;
 
   constructor(private adminService: AdminService,private router:Router,private route:ActivatedRoute,private dataStorageService:DataStorageService,private modalService:NgbModal,private http:HttpClient) { }
 
   ngOnInit(): void {
-    this.dataStorageService.employeeList().subscribe(employees => {
-      this.adminService.setEmployee(employees);
+    this.dataStorageService.employeeList().subscribe(employees => {    
+      this.adminService.setEmployee(employees);                 
       console.log(employees);
       console.log(this.adminService.employees);
     });

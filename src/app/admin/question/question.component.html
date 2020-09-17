@@ -21,7 +21,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let question of questions;let i = index">
+                    <tr *ngFor="let question of questions.slice().reverse();let i = index">
                         <td> {{ i+1 }}</td>
                         <td>{{ question.description }}</td>
                         <td>
@@ -49,6 +49,10 @@
                                 <div class="modal-body">
                                     <form (ngSubmit)="onDeleteDepartment()" #f="ngForm">
                                         Are you sure you want to delete this?
+                                        <br>
+                                        <u><b>Question:</b></u>
+                                        <br>
+                                        <b>{{question.description}}</b>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">No</button>
                                             <button type="submit" class="btn btn-primary">Yes</button>
