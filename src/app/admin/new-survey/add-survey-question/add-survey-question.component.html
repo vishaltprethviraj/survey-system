@@ -2,9 +2,8 @@
 
     <!-- Page Heading -->
     <h1 style="color:gray;">Create Survey - Step 2</h1>
-    <h6>Click the add button to add questions</h6>
+    <!-- <h6>Click the add button to add questions</h6> -->
     <br>
-
     <div class="row">
         <div class="col-xl-10">
             <form [formGroup]="addSurveyQuestionForm" (ngSubmit)="onAddQuestion()">
@@ -22,47 +21,52 @@
                             <option [value]="question._id"  *ngFor="let question of questions;let i=index">{{ question.description }}</option>                    
                         </select>
                     </div>
+                    <div class="col-xl-6">
+                        Options:
+                        <ol>
+                            <li *ngFor="let of option of options"></li>
+                        </ol>
+                    </div>
                 </div>
                 <div class="row">
 
                 </div>
-            </form>
-            <br>
-            <br>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th>Sl.No</th>
-                                <th>Question</th>
-                                <th>Options</th>
-                                <!-- <th>Delete</th> -->
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let surveyQuestion of surveyQuestions;let i = index">
-                                <td>{{ i+1 }}</td>
-                                <td>{{ surveyQuestion.questionid.description }}</td>
-                                <td>
-                                    <ol>
-                                        <li *ngFor="let surveyOption of surveyQuestion.questionid.options">{{surveyOption}}</li>
-                                    </ol>
-                                </td>
-                                <td>
+                <br>
+                <br>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Sl.No</th>
+                                    <th>Question</th>
+                                    <th>Options</th>
+                                    <!-- <th>Delete</th> -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let surveyQuestion of surveyQuestions;let i = index">
+                                    <td>{{ i+1 }}</td>
+                                    <td>{{ surveyQuestion.questionid.description }}</td>
+                                    <td>
+                                        <ol>
+                                            <li *ngFor="let surveyOption of surveyQuestion.questionid.options">{{surveyOption}}</li>
+                                        </ol>
+                                    </td>
+                                    <!-- <td>
                                     <a style="cursor:pointer" (click)="onDeleteSurveyQuestion(surveyQuestion.questionid._id)">
                                         <fa-icon [icon]="faTrash" style="color:#486dda;"></fa-icon>
                                     </a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                </td> -->
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
+            </form>
             <div class="row ">
                 <div class="col-xl-4 ">
                     <button type="button " class="btn btn-success " routerLink="/admin/survey-list" [disabled]="!isAdded">Submit</button> &nbsp;&nbsp;
-                    <button type="button " class="btn btn-danger " routerLink="/admin/survey-list" [disabled]="!isAdded">Cancel</button>
                 </div>
             </div>
             <!-- Content Row -->

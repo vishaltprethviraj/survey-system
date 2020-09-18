@@ -45,6 +45,7 @@ export class AddSurveyQuestionComponent implements OnInit {
         this.surveyQuestions = surveyQuestions;
       }
     ); 
+
     this.addSurveyQuestionForm = new FormGroup({
       'surveyQuestion': new FormControl("5f5d40233fedda12bc913ef8")
     });
@@ -67,11 +68,34 @@ export class AddSurveyQuestionComponent implements OnInit {
                                   {
                                     surveyid: this.id,
                                     questionid: questionId
-                                  }).subscribe(newSurveyQuestion => {                                    
-                                    console.log(newSurveyQuestion);
-                                    this.adminService.addSurveyQuestion(newSurveyQuestion);
-                                    this.isAdded = true; 
-                                    this.questions.slice();                                                                                                                                        
+                                  }).subscribe(newSurveyQuestion => {                                                                        
+                                    this.adminService.addSurveyQuestion(newSurveyQuestion);  
+                                    console.log(newSurveyQuestion);                                    
+                                    this.selectedSurveyQuestion = this.questions.filter(questions => (questions._id == questionId));
+                                    console.log(this.selectedSurveyQuestion);
+                                    let index = this.questions.indexOf(this.selectedSurveyQuestion[0]);
+                                    console.log(index);
+                                    if(index == 0) {
+                                      console.log(this.questions.slice(index+1));
+                                      this.questions = this.questions.slice(index+1);
+                                      this.addSurveyQuestionForm = new FormGroup({
+                                        'surveyQuestion': new FormControl(this.questions[0]._id)
+                                      });
+                                    }                                    
+                                    else if(index == this.questions.length-1) {
+                                      this.questions = this.questions.slice(0,index)
+                                      this.addSurveyQuestionForm = new FormGroup({
+                                        'surveyQuestion': new FormControl(this.questions[0]._id)
+                                      });
+                                    }
+                                    else {
+                                      console.log(this.questions.slice(0,index));
+                                      this.questions = (this.questions.slice(0,index)).concat(this.questions.slice(index+1,this.questions.length));                                    
+                                      this.addSurveyQuestionForm = new FormGroup({
+                                        'surveyQuestion': new FormControl(this.questions[0]._id)
+                                      });
+                                    }                                    
+                                    this.isAdded = true;                                                                                      
                                   });
 
     this.dataStorageService.getSurveyQuestions(this.id).subscribe(surveyQuestions => {
@@ -80,17 +104,16 @@ export class AddSurveyQuestionComponent implements OnInit {
                                 
   }
      
-  onDeleteSurveyQuestion(questionId:string) {        
+  // onDeleteSurveyQuestion(questionId:string) {        
        
-    this.http.delete<SurveyQuestion>('http://74.208.150.171:3501/api/v1/surveyquestion/'+ this.id+'/'+questionId).subscribe(surveyQuestion => {    
-    console.log(surveyQuestion);  
-    this.adminService.deleteSurveyQuestions(this.id,questionId);          
-  },
-  error => {
+  //   this.http.delete<SurveyQuestion>('http://74.208.150.171:3501/api/v1/surveyquestion/'+ this.id+'/'+questionId).subscribe(surveyQuestion => {    
+  //   console.log(surveyQuestion);  
+  //   this.adminService.deleteSurveyQuestions(this.id,questionId);          
+  // },
+  // error => {
     
-  });   
-  this.modalService.dismissAll();       
-   }
+  // });   
+  // this.modalService.dismissAll();       
+  //  }
    
-
 }
