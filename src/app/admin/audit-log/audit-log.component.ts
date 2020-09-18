@@ -23,7 +23,10 @@ export class AuditLogComponent implements OnInit {
   auditLog:AuditLog;
   auditList:AuditList[];
   hideTable:boolean = true; 
-
+  auditLength:number;
+  page:number = 1;
+  slNo: number = 0;
+  
   ngOnInit(): void {    
    this.auditLogForm = new FormGroup({
      'employee':new FormControl('5f5f3a933fe71d9a59aef343'),
@@ -31,6 +34,7 @@ export class AuditLogComponent implements OnInit {
      'fromDate':new FormControl(''),
      'toDate':new FormControl('')
    });
+   
   }
     
   minDate:string; 
@@ -61,9 +65,17 @@ export class AuditLogComponent implements OnInit {
      console.log(auditLog);
       this.auditList = auditLog.auditlist;
       this.hideTable = false;      
-      
-      
+      this.auditLength = this.auditList.length;      
    });
+  }
+  
+
+  increment_slNo() {
+    this.slNo++;
+  }
+
+  handlePageChange(event) {
+    this.page = event;
   }
 
 }

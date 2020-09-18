@@ -44,7 +44,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let audit of auditList; let i = index ">
+                    <tr *ngFor="let audit of auditList | paginate:{
+                        itemsPerPage:5,
+                        currentPage: page,
+                        totalItems: auditLength
+                    }; let i=index">
                         <td>{{ i+1 }}</td>
                         <td>{{ audit.userid.name }}</td>
                         <td>{{ audit.page }}</td>
@@ -53,6 +57,7 @@
                     </tr>
                 </tbody>
             </table>
+            <pagination-controls (pageChange)="handlePageChange($event)" autoHide="true"></pagination-controls>
         </div>
     </div>
 </div>

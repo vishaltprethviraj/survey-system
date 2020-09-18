@@ -1,5 +1,6 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { NgxPaginationModule} from 'ngx-pagination';
 
 import { AdminComponent } from './admin.component';
 import { HomeComponent } from './home/home.component';
@@ -60,6 +61,7 @@ import { EditSurveyComponent } from './survey-list/edit-survey/edit-survey.compo
     AdminRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxPaginationModule,
     SharedModule
   ],
   exports: [
@@ -82,7 +84,8 @@ import { EditSurveyComponent } from './survey-list/edit-survey/edit-survey.compo
     SurveyDetailComponent,
     EditSurveyComponent 
   ],
-  providers:[DatePipe]
+  providers:[DatePipe],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AdminModule {
 
