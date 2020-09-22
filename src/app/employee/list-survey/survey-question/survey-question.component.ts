@@ -6,6 +6,7 @@ import { Question } from 'src/app/admin/question/question.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from 'src/app/login/user.model';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-survey-question',
@@ -34,19 +35,19 @@ export class SurveyQuestionComponent implements OnInit {
       .subscribe(
         (params: Params) => {
           this.id = params['surveyId'];
-          console.log(this.id);
+          // console.log(this.id);
           this.dataStorageService.getSurveyQuestions(this.id).subscribe(surveyQuestions => {
             this.surveyName = surveyQuestions[0].surveyid.name;            
-            console.log(surveyQuestions);
-            console.log(surveyQuestions.length);
+            // console.log(surveyQuestions);
+            // console.log(surveyQuestions.length);
             for (let i = 0; i < (surveyQuestions.length); i++) {
               this.questions[i] = surveyQuestions[i].questionid;
 
             }
             this.currentQuestion = this.questions[0];
             this.totalQuestions = surveyQuestions.length;
-            console.log(this.totalQuestions);
-            console.log(this.questions);
+            // console.log(this.totalQuestions);
+            // console.log(this.questions);
             this.initializeNumberofQuestions();
           });
 
@@ -98,19 +99,19 @@ export class SurveyQuestionComponent implements OnInit {
     // console.log(this.totalQuestions);
     this.user = JSON.parse(localStorage.getItem('userData'));      
     this.surveyResponse = this.surveyQuestionForm.value['surveyOption'];
-    console.log(description);
-    console.log(questionid);
-    console.log(this.user._id);
-    console.log(this.id);    
-    console.log(this.surveyResponse);
+    // console.log(description);
+    // console.log(questionid);
+    // console.log(this.user._id);
+    // console.log(this.id);    
+    // console.log(this.surveyResponse);
     
-    this.http.post("http://74.208.150.171:3501/api/v1/surveyresponse",{
+    this.http.post(environment.surveyResponse,{
       "surveyid": this.id,
 	    "userid": this.user._id,
 	    "questionid": questionid,
 	    "response": this.surveyResponse
     }).subscribe(resData => {
-      console.log(resData);
+      // console.log(resData);
     });
         
     this.surveyQuestionForm = new FormGroup({

@@ -5,6 +5,7 @@ import  { catchError,tap } from 'rxjs/operators';
 
 import { User } from './user.model';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 interface LoginResponseData {    
     // kind:string;
@@ -32,7 +33,7 @@ export class LoginService {
     constructor(private http:HttpClient,private router:Router){ }
 
     login(username:string,password:string) {                
-        return this.http.post<LoginResponseData>('http://74.208.150.171:3501/api/v1/login',
+        return this.http.post<LoginResponseData>(environment.login,
         {
             username: username,
             password: password,            

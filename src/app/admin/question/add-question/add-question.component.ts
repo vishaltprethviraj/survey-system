@@ -4,6 +4,7 @@ import { AdminService } from '../../admin.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Question } from '../question.model';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-add-question',
@@ -48,23 +49,23 @@ export class AddQuestionComponent implements OnInit {
     const description = this.addQuestionForm.value['question'];
     this.options  = this.addQuestionForm.value['options'];
     this.optionArray = this.options.map(x => x.options);    
-    console.log(this.optionArray);    
-    this.http.post<Question>('http://74.208.150.171:3501/api/v1/question',
+    // console.log(this.optionArray);    
+    this.http.post<Question>(environment.question,
           { 
             description:description,
             options:this.optionArray
           }).subscribe(newQuestion=>{
-            console.log(newQuestion);
+            // console.log(newQuestion);
       this.adminService.addQuestion(newQuestion);
     });  
-    console.log(this.addQuestionForm);
+    // console.log(this.addQuestionForm);
     this.onCancel();
   }
   
   onCancel() {
     this.options  = this.addQuestionForm.value['options'];  
     
-    console.log(this.options);
+    // console.log(this.options);
     this.router.navigate(['/admin/question']);
   }
 

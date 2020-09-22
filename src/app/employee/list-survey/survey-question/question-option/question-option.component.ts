@@ -1,11 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Question } from 'src/app/admin/question/question.model';
-import { FormGroup, FormControl } from '@angular/forms';
-import { AdminService } from 'src/app/admin/admin.service';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Option } from 'src/app/admin/question/option.model';
-import { DataStorageService } from 'src/app/shared/data-storage.service';
-import { SurveyQuestion } from 'src/app/admin/new-survey/survey-question.model';
+import { Component } from '@angular/core';
+
 
 @Component({
   selector: 'app-question-option',

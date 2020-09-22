@@ -1,10 +1,39 @@
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    <h1 style="color:gray;">Employee Details</h1>
-    <!-- Content Row -->
+    <div class="row">
+        <div class="col-xl-4">
+            <h1 style="color:gray;">&nbsp;Employee Details</h1>
+        </div>
+        <div class="col-xl-6"></div>
+        <div class="col-xl-2">            
+            <button type="button" class="btn btn-primary" style="float:right;margin-right: 18px;margin-top: 4px;" (click)="onAddEmployee()">+ Add Employee</button>
+        </div>
+    </div>    
+    <!-- Content Row -->    
     <br>
-    <button type="button" class="btn btn-primary" (click)="onAddEmployee()">Add New</button>
+    <form [formGroup] = "employeeFilterForm">
+    <div class="row" style="margin-left: 10px;background-color: white;margin-right:18px;">
+        <div class="col-xl-3">
+            <label for="department">Department</label>
+            <select class="form-control" formControlName="department">
+                    <option [value]="department._id" *ngFor="let department of departments; let i = index">{{department.name}}</option>                       
+            </select>
+        </div>
+        <div class="col-xl-3">
+            <label for="designation">Designation</label>
+            <select class="form-control" formControlName="designation">
+                <option [value]="designation._id" *ngFor="let designation of designations; let i =index">{{ designation.name }}</option>                    
+            </select>
+        </div>
+        <div class="col-xl-4"></div>        
+        <div class="col-xl-2">
+            <br>            
+            <button type="button" class="btn btn-primary" style="width: 135px;margin-left: 8px;" (click)="onShow()">Show</button>            
+        </div> 
+    </div>              
+    </form>
+    <br>    
     <div class="card-body">
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">

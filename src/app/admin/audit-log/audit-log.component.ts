@@ -6,6 +6,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { AuditList } from './audit-list.model';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-audit-log',
@@ -44,7 +45,7 @@ export class AuditLogComponent implements OnInit {
     let newMinimumDate = new Date(newMinDate);
     newMinimumDate.setDate(newMinimumDate.getDate()+1);
     this.minDate = this.datePipe.transform(newMinimumDate,'yyyy-MM-dd');
-    console.log(this.minDate);
+    // console.log(this.minDate);
   }
 
   onSubmit() {
@@ -52,17 +53,17 @@ export class AuditLogComponent implements OnInit {
     const page = this.auditLogForm.value['pages'];
     const fromDate = this.auditLogForm.value['fromDate'];
     const toDate = this.auditLogForm.value['toDate'];
-    console.log(userid);
-    console.log(page);
-    console.log(fromDate);
-    console.log(toDate);
-    this.http.post<AuditLog>('http://74.208.150.171:3501/api/v1/auditlog',{
+    // console.log(userid);
+    // console.log(page);
+    // console.log(fromDate);
+    // console.log(toDate);
+    this.http.post<AuditLog>(environment.auditLog,{
      userid:userid,
      page:page,
      fromDate:fromDate,
      toDate:toDate
    }).subscribe(auditLog => {
-     console.log(auditLog);
+    //  console.log(auditLog);
       this.auditList = auditLog.auditlist;
       this.hideTable = false;      
       this.auditLength = this.auditList.length;      

@@ -44,7 +44,7 @@ export class EditSurveyComponent implements OnInit {
     let newMinimumDate = new Date(newMinDate);
     newMinimumDate.setDate(newMinimumDate.getDate()+1);
     this.minDate = this.datePipe.transform(newMinimumDate,'yyyy-MM-dd');
-    console.log(this.minDate);
+    // console.log(this.minDate);
   }
   onSubmit() {
     const name = this.editSurveyForm.value['name'];
@@ -61,7 +61,7 @@ export class EditSurveyComponent implements OnInit {
         start_date: startDate,
         end_date: endDate
       }).subscribe(newSurvey => {
-        console.log(newSurvey);  
+        // console.log(newSurvey);  
         this.adminService.updateSurvey(newSurvey._id,newSurvey);                                          
       });       
       this.onCancel();
@@ -83,7 +83,7 @@ export class EditSurveyComponent implements OnInit {
       });
     },
       errorRes => {
-        console.log(errorRes);
+        // console.log(errorRes);
       });
 
   }

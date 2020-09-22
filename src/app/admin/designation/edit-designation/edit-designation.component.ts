@@ -5,6 +5,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Designation } from '../designation.model';
 import { DataStorageService } from 'src/app/shared/data-storage.service';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-edit-designation',
@@ -34,15 +35,15 @@ export class EditDesignationComponent implements OnInit {
 
   onSubmit() {
     const designationName = this.editDesignationForm.value['designationName'] ;
-    this.http.patch<Designation>('http://74.208.150.171:3501/api/v1/designation/'+ this.id,
+    this.http.patch<Designation>(environment.designation+'/'+ this.id,
           { 
             name: designationName
           }) 
           .subscribe(editedDesignation => {
-                     console.log(editedDesignation);  
+                    //  console.log(editedDesignation);  
                      this.adminService.updateDesignation(designationName,editedDesignation._id);                             
               },error=> {
-                console.log(error)
+                // console.log(error)
            });         
     this.onCancel();
   }

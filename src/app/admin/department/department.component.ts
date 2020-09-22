@@ -8,7 +8,7 @@ import { Router, ActivatedRoute,Params } from '@angular/router';
 import { DataStorageService } from 'src/app/shared/data-storage.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
-
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-department',
@@ -53,17 +53,17 @@ export class DepartmentComponent implements OnInit {
      backdrop: 'static'
     });
    this.id = department._id; 
-   console.log(this.id);   
+  //  console.log(this.id);   
    }
 
    onDeleteDepartment() {
-    console.log(this.id);
+    // console.log(this.id);
     // const userData = JSON.parse(localStorage.getItem('userData')) ;
-    this.http.delete('http://74.208.150.171:3501/api/v1/department/'+ this.id).subscribe(res => {
+    this.http.delete(environment.department + '/' + this.id).subscribe(res => {
     this.adminService.deleteDepartment(this.id);    
   },
   error => {
-    console.log(error);
+    // console.log(error);
   }); 
   this.modalService.dismissAll();       
    }

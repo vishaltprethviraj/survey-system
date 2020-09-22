@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { AdminService } from '../admin.service';
 import { Survey } from '../survey-list/survey.model';
 import { DatePipe } from '@angular/common';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-new-survey',
@@ -36,7 +37,7 @@ export class NewSurveyComponent implements OnInit {
     let newMinimumDate = new Date(newMinDate);
     newMinimumDate.setDate(newMinimumDate.getDate()+1);
     this.minDate = this.datePipe.transform(newMinimumDate,'yyyy-MM-dd');
-    console.log(this.minDate);
+    // console.log(this.minDate);
   }
   onSubmit() {
     const name = this.newSurveyForm.value['name'];
@@ -45,7 +46,7 @@ export class NewSurveyComponent implements OnInit {
     const startDate = this.newSurveyForm.value['startDate'];
     const endDate = this.newSurveyForm.value['endDate'];                         
     // this.adminService.addSurvey(newSurvey);
-    this.http.post<Survey>('http://74.208.150.171:3501/api/v1/survey',
+    this.http.post<Survey>(environment.survey,
                           {
                             name: name,
                             description: description,
@@ -53,7 +54,7 @@ export class NewSurveyComponent implements OnInit {
                             start_date: startDate,
                             end_date: endDate
                           }).subscribe( newSurvey => {
-                            console.log(newSurvey);                            
+                            // console.log(newSurvey);                            
                             // console.log(newSurvey._id);                            
                             this.router.navigate([newSurvey._id,'add-survey-question'],{ relativeTo: this.route })
                           });

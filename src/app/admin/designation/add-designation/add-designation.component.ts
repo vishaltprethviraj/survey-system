@@ -5,6 +5,7 @@ import { Designation } from '../designation.model';
 import { AdminService } from '../../admin.service';
 import { DataStorageService } from '../../../shared/data-storage.service';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-add-designation',
   templateUrl: './add-designation.component.html',
@@ -24,7 +25,7 @@ export class AddDesignationComponent implements OnInit {
 
   onSubmit() {
     const designationName = this.addDesignationForm.value['designationName'];    
-    this.http.post<Designation>('http://74.208.150.171:3501/api/v1/designation', 
+    this.http.post<Designation>(environment.designation, 
                                  {
                                   name:designationName
                                  }).subscribe(newDesignation => {

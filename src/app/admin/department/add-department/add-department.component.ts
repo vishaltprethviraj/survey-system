@@ -5,6 +5,7 @@ import { AdminService } from '../../admin.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DataStorageService } from 'src/app/shared/data-storage.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-add-department',
@@ -26,7 +27,7 @@ export class AddDepartmentComponent implements OnInit {
 
   onSubmit() {        
     const departmentName = this.addDepartmentForm.value['departmentName'];       
-    this.http.post<Department>('http://74.208.150.171:3501/api/v1/department',
+    this.http.post<Department>(environment.department,
           { 
             name: departmentName
           }).subscribe(newDepartment=>{

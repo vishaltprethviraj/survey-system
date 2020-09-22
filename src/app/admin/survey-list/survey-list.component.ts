@@ -28,7 +28,7 @@ export class SurveyListComponent implements OnInit {
   ngOnInit(): void {
     this.dataStorageService.surveyList().subscribe(surveys => {
       this.adminService.setSurvey(surveys);      
-      console.log(surveys);
+      // console.log(surveys);
       for(var i=0;i<surveys.length;i++) {
         if((new Date()) > surveys[i].end_date) {
           this.adminService.activeSurveys++;
@@ -52,20 +52,20 @@ export class SurveyListComponent implements OnInit {
      backdrop: 'static'
     });
    this.id = survey._id; 
-   console.log(this.id);   
+  //  console.log(this.id);   
    }
 
    onDeleteSurvey() {
     console.log(this.id);    
     this.http.delete('http://74.208.150.171:3501/api/v1/survey/'+ this.id).subscribe(res => {
     this.adminService.deleteSurvey(this.id); 
-    console.log(res);
+    // console.log(res);
   },
   error => {
-    console.log(error);
+    // console.log(error);
   }); 
   this.http.delete('http://74.208.150.171:3501/api/v1/surveyquestion/'+ this.id) .subscribe(res=> {
-    console.log(res);
+    // console.log(res);
   });
 
   this.modalService.dismissAll();       

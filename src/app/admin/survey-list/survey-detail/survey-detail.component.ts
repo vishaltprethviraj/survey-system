@@ -71,13 +71,13 @@ export class SurveyDetailComponent implements OnInit {
    onSubmit() {
     const questionId = this.editSQForm.value['surveyQuestion'];
     const surveyId = this.id;
-    console.log(questionId);
-    console.log(surveyId);
+    // console.log(questionId);
+    // console.log(surveyId);
     this.http.patch<SurveyQuestion>('http://74.208.150.171:3501/api/v1/surveyquestion/'+this.id+'/'+this.questionIdEdit,{
       questionid:questionId
     }).subscribe(surveyQuestion=> 
       {
-        console.log(surveyQuestion);
+        // console.log(surveyQuestion);
         this.adminService.updateSurveyQuestion(this.id,this.questionIdEdit,surveyQuestion);
         this.selectedSurveyQuestion = this.surveyQuestions.filter(surveyQuestions => (surveyQuestions.surveyid._id == this.id && surveyQuestions.questionid._id == this.questionIdEdit));
         let index = this.surveyQuestions.indexOf(this.selectedSurveyQuestion[0]);                        
@@ -95,22 +95,22 @@ export class SurveyDetailComponent implements OnInit {
      backdrop: 'static'
     });
    this.questionId = surveyQuestion.questionid._id; 
-   console.log(this.id);   
+  //  console.log(this.id);   
    }
 
    onDeleteSurveyQuestion() {
-    console.log(this.id);
+    // console.log(this.id);
     // const userData = JSON.parse(localStorage.getItem('userData')) ;
-    console.log(this.questionId);    
+    // console.log(this.questionId);    
     this.http.delete<SurveyQuestion>('http://74.208.150.171:3501/api/v1/surveyquestion/'+ this.id+'/'+this.questionId).subscribe(surveyQuestion => {    
-    console.log(surveyQuestion);  
+    // console.log(surveyQuestion);  
     this.adminService.deleteSurveyQuestions(this.id,this.questionId);
     this.selectedSurveyQuestion = this.surveyQuestions.filter(surveyQuestion => (surveyQuestion.surveyid._id == this.id && surveyQuestion.questionid._id == this.questionId));
     let index = this.surveyQuestions.indexOf(this.selectedSurveyQuestion[0]);                        
     this.surveyQuestions.splice(index,1) ;
   },
   error => {
-    console.log(error);
+    // console.log(error);
   });   
   this.modalService.dismissAll();       
    }

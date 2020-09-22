@@ -8,6 +8,7 @@ import { Designation } from '../designation/designation.model';
 
 import { Employee } from '../employee-details/employee.model';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-new-employee',
@@ -35,9 +36,9 @@ export class NewEmployeeComponent implements OnInit {
     const mobilephone = this.newEmployeeForm.value['phoneNumber'];
     const departmentId = this.newEmployeeForm.value['department'];
     const designationId = this.newEmployeeForm.value['designation'];
-    console.log(departmentId);
-    console.log(designationId);   
-    this.http.post<Employee>('http://74.208.150.171:3501/api/v1/userprofile',
+    // console.log(departmentId);
+    // console.log(designationId);   
+    this.http.post<Employee>(environment.userprofile,
     {
       username: username,
       name:name,
@@ -47,7 +48,7 @@ export class NewEmployeeComponent implements OnInit {
       designationid:designationId
     }).subscribe(newEmployee => {
         this.adminService.addEmployee(newEmployee);
-        console.log(newEmployee);
+        // console.log(newEmployee);
     });    
     this.onCancel();
   }

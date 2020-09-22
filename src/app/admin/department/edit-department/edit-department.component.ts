@@ -5,6 +5,7 @@ import { AdminService } from '../../admin.service';
 import { DataStorageService } from 'src/app/shared/data-storage.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Department } from '../department.model';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-edit-department',
@@ -47,14 +48,14 @@ export class EditDepartmentComponent implements OnInit {
 
   editDepartment() {
     const departmentName = this.editDepartmentForm.value['departmentName'];
-    this.http.patch<Department>('http://74.208.150.171:3501/api/v1/department/' + this.id,
+    this.http.patch<Department>(environment.department + '/' + this.id,
       {
         name: departmentName
       }).subscribe(editedDepartment => {
-        console.log(editedDepartment);
+        // console.log(editedDepartment);
         this.adminService.updateDepartment(departmentName, editedDepartment._id);
       }, error => {
-        console.log(error)
+        // console.log(error)
       });
   }
   onCancel() {
@@ -70,7 +71,7 @@ export class EditDepartmentComponent implements OnInit {
       });
     },
       errorRes => {
-        console.log(errorRes);
+        // console.log(errorRes);
       });
 
   }

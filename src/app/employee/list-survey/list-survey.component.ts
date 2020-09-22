@@ -23,13 +23,13 @@ export class ListSurveyComponent implements OnInit {
   ngOnInit(): void {
     this.dataStorageService.surveyList().subscribe(surveys => {
       this.adminService.setSurvey(surveys);      
-      console.log(surveys);
+      // console.log(surveys);
       this.surveys = this.adminService.surveys;
     });
   }
 
   onAttend(id:string) {
-    console.log(id);
+    // console.log(id);
     this.dataStorageService.getSurveyQuestions(id).subscribe(surveyQuestion=> {
       this.surveyQuestions = surveyQuestion;
       this.router.navigate([id,'survey-question'],{ relativeTo: this.route })

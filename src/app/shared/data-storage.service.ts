@@ -8,6 +8,7 @@ import { Employee } from '../admin/employee-details/employee.model';
 import { Question } from '../admin/question/question.model';
 import { Survey } from '../admin/survey-list/survey.model';
 import { SurveyQuestion } from '../admin/new-survey/survey-question.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn:'root' })
 
@@ -16,58 +17,58 @@ export class DataStorageService {
     
     //Departments Section
     departmentList() {        
-        return this.http.get<Department[]>('http://74.208.150.171:3501/api/v1/department');        
+        return this.http.get<Department[]>(environment.department);        
     }        
 
     getDepartment(id:string) {            
-        return this.http.get<Department>('http://74.208.150.171:3501/api/v1/department/'+id);        
+        return this.http.get<Department>(environment.department +'/'+id);        
     }
   
     //Designation Section
 
     designationList() {        
-        return this.http.get<Department[]>('http://74.208.150.171:3501/api/v1/designation'); 
+        return this.http.get<Designation[]>(environment.designation); 
     }
     getDesignation(id:string) {
-        return this.http.get<Designation>('http://74.208.150.171:3501/api/v1/designation/'+id);
+        return this.http.get<Designation>(environment.designation + '/' +id);
     }
 
     //employee section
 
     employeeList() {
-        return this.http.get<Employee[]>('http://74.208.150.171:3501/api/v1/userprofile');
+        return this.http.get<Employee[]>(environment.userprofile);
     }
 
     getEmployee(id:string) {
-        return this.http.get<Employee>('http://74.208.150.171:3501/api/v1/userprofile/'+id);
+        return this.http.get<Employee>(environment.userprofile+ '/' +id);
     }
 
     //question section
 
     questionList() {
-        return this.http.get<Question[]>('http://74.208.150.171:3501/api/v1/question');
+        return this.http.get<Question[]>(environment.question);
     }
 
     getQuestion(id:string) {
-        return this.http.get<Question>('http://74.208.150.171:3501/api/v1/question/'+id);
+        return this.http.get<Question>(environment.question + '/' +id);
     }
 
     //survey section
     surveyList() {
-        return this.http.get<Survey[]>('http://74.208.150.171:3501/api/v1/survey');
+        return this.http.get<Survey[]>(environment.survey);
     }
 
     getSurvey(id:string) {
-        return this.http.get<Survey>('http://74.208.150.171:3501/api/v1/survey/'+id);
+        return this.http.get<Survey>(environment.survey+ '/' +id);
     }
 
     //survey question section    
     surveyQuestionList() {
-        return this.http.get<SurveyQuestion[]>('http://74.208.150.171:3501/api/v1/surveyquestion');
+        return this.http.get<SurveyQuestion[]>(environment.surveyQuestion);
     }
 
     getSurveyQuestions(id:string) {
-        return this.http.get<SurveyQuestion[]>('http://74.208.150.171:3501/api/v1/surveyquestion/'+id);
+        return this.http.get<SurveyQuestion[]>(environment.surveyQuestion + '/' + id);
     }    
     
 }

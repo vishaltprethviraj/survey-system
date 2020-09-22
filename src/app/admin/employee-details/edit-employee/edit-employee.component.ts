@@ -10,6 +10,7 @@ import { Params } from '@fortawesome/fontawesome-svg-core';
 import { Subscription } from 'rxjs';
 import { DataStorageService } from 'src/app/shared/data-storage.service';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-edit-employee',
@@ -36,8 +37,8 @@ export class EditEmployeeComponent implements OnInit {
       'name': new FormControl(null),
       'email': new FormControl(null),
       'phoneNumber': new FormControl(null),
-      'department': new FormControl('5f5b9e0720f2b9c05adaeabe'),
-      'designation': new FormControl('5f5baa8e20f2b9c05adaeac5'), 
+      'department': new FormControl('5f5bb07da42c3d060046a5ee'),
+      'designation': new FormControl('5f5bb044a42c3d060046a5eb'), 
     });
     
     this.subscription = this.route.params
@@ -58,9 +59,9 @@ export class EditEmployeeComponent implements OnInit {
     const mobilephone = this.editEmployeeForm.value['phoneNumber'];
     const departmentId = this.editEmployeeForm.value['department'];
     const designationId = this.editEmployeeForm.value['designation'];
-    console.log(departmentId);
-    console.log(this.id);
-    this.http.patch<Employee>('http://74.208.150.171:3501/api/v1/userprofile/' + this.id,
+    // console.log(departmentId);
+    // console.log(this.id);
+    this.http.patch<Employee>(environment.userprofile + '/' + this.id,
       {
         username: username,
         name: name,
@@ -69,10 +70,10 @@ export class EditEmployeeComponent implements OnInit {
         departmentid: departmentId,
         designationid: designationId
       }).subscribe(editedEmployee => {
-        console.log(editedEmployee);
+        // console.log(editedEmployee);
         this.adminService.updateEmployee(username,name,email,mobilephone,departmentId,designationId,editedEmployee._id);      
       }, error => {
-        console.log(error)
+        // console.log(error)
       });
     this.onCancel();
   }
@@ -96,10 +97,10 @@ export class EditEmployeeComponent implements OnInit {
         'department': new FormControl(employee.departmentid._id),
         'designation': new FormControl(employee.designationid._id)
       });
-      console.log(employee);
+      // console.log(employee);
     },
       errorRes => {
-        console.log(errorRes);
+        // console.log(errorRes);
       });
 
   }

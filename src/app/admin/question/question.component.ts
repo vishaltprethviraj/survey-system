@@ -6,6 +6,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { DataStorageService } from 'src/app/shared/data-storage.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-question',
@@ -48,17 +49,17 @@ export class QuestionComponent implements OnInit {
      backdrop: 'static'
     });
    this.id = question._id; 
-   console.log(this.id);   
+  //  console.log(this.id);   
    }
 
    onDeleteDepartment() {
-    console.log(this.id);    
-    this.http.delete('http://74.208.150.171:3501/api/v1/question/'+ this.id).subscribe(res => {
+    // console.log(this.id);    
+    this.http.delete(environment.question +'/'+ this.id).subscribe(res => {
     this.adminService.deleteQuestion(this.id);   
-    console.log(res) 
+    // console.log(res) 
   },
   error => {
-    console.log(error);
+    // console.log(error);
   }); 
   this.modalService.dismissAll();       
    }

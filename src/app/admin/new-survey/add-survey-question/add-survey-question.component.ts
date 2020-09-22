@@ -9,6 +9,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Survey } from '../../survey-list/survey.model';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-add-survey-question',
@@ -37,7 +38,7 @@ export class AddSurveyQuestionComponent implements OnInit {
           this.id = params['id'];
         }
       );
-    console.log("SurveyID: "+this.id);
+    // console.log("SurveyID: "+this.id);
         
     this.adminService.surveyQuestionChanged
     .subscribe(
@@ -64,19 +65,19 @@ export class AddSurveyQuestionComponent implements OnInit {
   onAddQuestion() {   
  
     const questionId = this.addSurveyQuestionForm.value['surveyQuestion'];        
-    this.http.post<SurveyQuestion>('http://74.208.150.171:3501/api/v1/surveyquestion',
+    this.http.post<SurveyQuestion>(environment.surveyQuestion,
                                   {
                                     surveyid: this.id,
                                     questionid: questionId
                                   }).subscribe(newSurveyQuestion => {                                                                        
                                     this.adminService.addSurveyQuestion(newSurveyQuestion);  
-                                    console.log(newSurveyQuestion);                                    
+                                    // console.log(newSurveyQuestion);                                    
                                     this.selectedSurveyQuestion = this.questions.filter(questions => (questions._id == questionId));
-                                    console.log(this.selectedSurveyQuestion);
+                                    // console.log(this.selectedSurveyQuestion);
                                     let index = this.questions.indexOf(this.selectedSurveyQuestion[0]);
-                                    console.log(index);
+                                    // console.log(index);
                                     if(index == 0) {
-                                      console.log(this.questions.slice(index+1));
+                                      // console.log(this.questions.slice(index+1));
                                       this.questions = this.questions.slice(index+1);
                                       this.addSurveyQuestionForm = new FormGroup({
                                         'surveyQuestion': new FormControl(this.questions[0]._id)
@@ -89,7 +90,7 @@ export class AddSurveyQuestionComponent implements OnInit {
                                       });
                                     }
                                     else {
-                                      console.log(this.questions.slice(0,index));
+                                      // console.log(this.questions.slice(0,index));
                                       this.questions = (this.questions.slice(0,index)).concat(this.questions.slice(index+1,this.questions.length));                                    
                                       this.addSurveyQuestionForm = new FormGroup({
                                         'surveyQuestion': new FormControl(this.questions[0]._id)

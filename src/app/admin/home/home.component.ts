@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit,OnDestroy {
       this.adminService.setDepartment(departments);               
     },              
       errorRes => {
-        console.log(errorRes);
+        // console.log(errorRes);
       }      
      );   
     
@@ -56,9 +56,9 @@ export class HomeComponent implements OnInit,OnDestroy {
     //survey initialization
     this.dataStorageService.surveyList().subscribe(surveys => {
       this.adminService.setSurvey(surveys);      
-      console.log(surveys);
-      console.log(this.currentDate);
-      console.log(surveys[0].end_date);
+      // console.log(surveys);
+      // console.log(this.currentDate);
+      // console.log(surveys[0].end_date);
       for(var i=0;i<surveys.length;i++) {
         if(this.datePipe.transform(this.currentDate,'yyyy-MM-dd') <= this.datePipe.transform(surveys[i].end_date,'yyyy-MM-dd')) {
           this.activeSurveys  = this.activeSurveys + 1;          

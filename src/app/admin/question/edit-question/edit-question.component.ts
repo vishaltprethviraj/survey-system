@@ -5,6 +5,7 @@ import { Question } from '../question.model';
 import { AdminService } from '../../admin.service';
 import { HttpClient } from '@angular/common/http';
 import { DataStorageService } from 'src/app/shared/data-storage.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-edit-question',
@@ -37,16 +38,16 @@ export class EditQuestionComponent implements OnInit {
     const description = this.editQuestionForm.value['question'];
     this.options = this.editQuestionForm.value['options'];
     this.optionArray = this.options.map(x => x.options);
-    console.log(this.optionArray);
-    this.http.patch<Question>('http://74.208.150.171:3501/api/v1/question/' + this.id,
+    // console.log(this.optionArray);
+    this.http.patch<Question>(environment.question + '/' + this.id,
       {
         description: description,
         options: this.optionArray
       }).subscribe(editedQuestion => {
-        console.log(editedQuestion);
+        // console.log(editedQuestion);
         this.adminService.updateQuestion(this.id,editedQuestion);                             
       }, error => {
-        console.log(error)
+        // console.log(error)
       });
     this.router.navigate(['/admin/question']);
 
@@ -95,7 +96,7 @@ export class EditQuestionComponent implements OnInit {
       });
     },
       errorRes => {
-        console.log(errorRes);
+        // console.log(errorRes);
       });
              
   }  

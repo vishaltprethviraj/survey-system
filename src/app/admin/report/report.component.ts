@@ -8,6 +8,7 @@ import { Report } from './report.model';
 import { UserList } from './userlist.model';
 import { SurveyResponse } from './survey-response.model';
 import { ReportFinal } from './report-final.model';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-report',
@@ -44,15 +45,15 @@ export class ReportComponent implements OnInit {
   
   onShow() {
     const surveyid = this.reportForm.value['survey'];
-    this.http.get<Report>('http://74.208.150.171:3501/api/v1/surveyresponse/'+surveyid).subscribe(report => {
-        console.log(report.userlist);                      
+    this.http.get<Report>(environment.surveyResponse + '/' +surveyid).subscribe(report => {
+        // console.log(report.userlist);                      
         this.userlist = report.userlist.slice(1);
         this.hideTableSurvey = false;        
     });
 
     const userid = this.reportForm.value['employee'];
-    console.log(userid);
-    this.http.get<ReportFinal>('http://74.208.150.171:3501/api/v1/surveyresponse/'+surveyid+'/'+userid).subscribe(surveyResponses => {
+    // console.log(userid);
+    this.http.get<ReportFinal>(environment.surveyResponse + '/' + surveyid + '/' + userid).subscribe(surveyResponses => {
         this.surveyResponses = surveyResponses.surveyresponse;
         if(this.surveyResponses.length==0) {
           this.hideTableResponse = true;
