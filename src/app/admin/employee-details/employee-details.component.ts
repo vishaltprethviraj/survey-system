@@ -51,12 +51,23 @@ export class EmployeeDetailsComponent implements OnInit {
     );
         
   }
-  onShow() {
-    this.employees = this.adminService.employees;
+  onShow() {    
     const departmentId = this.employeeFilterForm.value['department'];
     const designationId = this.employeeFilterForm.value['designation'];
-    this.employees = this.employees.filter(employee=> (employee.departmentid._id === departmentId && employee.designationid._id === designationId));
-    console.log(this.employees);
+    this.employees = this.adminService.employees;    
+    if(departmentId === "0" && designationId === "0") {            
+      this.employees = this.adminService.employees;      
+    }
+    else if(departmentId === "0") {      
+      this.employees = this.employees.filter(employee => employee.designationid._id === designationId);
+    }
+    else if (designationId === "0") {      
+      this.employees = this.employees.filter(employee => employee.departmentid._id === departmentId);
+    }        
+    else {      
+      this.employees = this.employees.filter(employee=> (employee.departmentid._id === departmentId && employee.designationid._id === designationId));
+    }    
+    // console.log(this.employees);
   }
 
   onAddEmployee() {

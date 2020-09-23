@@ -47,7 +47,7 @@ export class ReportComponent implements OnInit {
     const surveyid = this.reportForm.value['survey'];
     this.http.get<Report>(environment.surveyResponse + '/' +surveyid).subscribe(report => {
         // console.log(report.userlist);                      
-        this.userlist = report.userlist.slice(1);
+        this.userlist = report.userlist.slice(1);        
         this.hideTableSurvey = false;        
     });
 
@@ -59,9 +59,9 @@ export class ReportComponent implements OnInit {
           this.hideTableResponse = true;
           this.hideAlert = false;
         }
-        else {
+        else {          
           this.hideTableResponse = false;
-          this.hideAlert = true;
+          this.hideAlert = true;          
         }
     });
     scrollTo(150,300);        

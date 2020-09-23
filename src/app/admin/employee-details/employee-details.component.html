@@ -17,13 +17,15 @@
         <div class="col-xl-3">
             <label for="department">Department</label>
             <select class="form-control" formControlName="department">
-                    <option [value]="department._id" *ngFor="let department of departments; let i = index">{{department.name}}</option>                       
+                    <option [value]="department._id" *ngFor="let department of departments; let i = index">{{department.name}}</option> 
+                    <option value="0">All</option>                      
             </select>
         </div>
         <div class="col-xl-3">
             <label for="designation">Designation</label>
             <select class="form-control" formControlName="designation">
                 <option [value]="designation._id" *ngFor="let designation of designations; let i =index">{{ designation.name }}</option>                    
+                <option value="0">All</option>
             </select>
         </div>
         <div class="col-xl-4"></div>        
